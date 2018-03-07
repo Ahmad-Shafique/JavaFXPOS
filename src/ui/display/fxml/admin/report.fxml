@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.admin.AdminReportController">
+   <children>
+      <Label layoutX="51.0" layoutY="50.0" prefHeight="24.0" prefWidth="96.0" text="Total Items Sold: " />
+      <Label layoutX="51.0" layoutY="21.0" prefHeight="17.0" prefWidth="83.0" text="Time period" />
+      <Label layoutX="126.0" layoutY="21.0" prefHeight="17.0" prefWidth="149.0" text="12/12/2017 - 28/2/2018" />
+      <Label layoutX="51.0" layoutY="83.0" prefHeight="17.0" prefWidth="120.0" text="Total Sales in Dollars:" />
+      <Label layoutX="171.0" layoutY="54.0" prefHeight="17.0" prefWidth="83.0" text="50" />
+      <Label layoutX="171.0" layoutY="83.0" prefHeight="17.0" prefWidth="83.0" text="600" />
+      <PieChart layoutX="45.0" layoutY="117.0" prefHeight="231.0" prefWidth="239.0" />
+      <Label layoutX="51.0" layoutY="362.0" prefHeight="17.0" prefWidth="172.0" text="Sold items breakdown" />
+   </children>
+</AnchorPane>

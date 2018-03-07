@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.login.LoginController">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <VBox prefHeight="200.0" prefWidth="278.0">
+         <children>
+            <GridPane prefHeight="105.0" prefWidth="278.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="95.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="183.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <FlowPane>
+                     <children>
+                        <Label text="Username" />
+                     </children>
+                  </FlowPane>
+                  <FlowPane GridPane.rowIndex="1">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="60.0" text="Password" />
+                     </children>
+                  </FlowPane>
+                  <TextField GridPane.columnIndex="1" />
+                  <TextField prefHeight="25.0" prefWidth="219.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ButtonBar GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <buttons>
+                        <Button mnemonicParsing="false" onAction="#loginButtonClick" text="Login" />
+                     </buttons>
+                  </ButtonBar>
+               </children>
+            </GridPane>
+         </children></VBox>
+   </children>
+</GridPane>

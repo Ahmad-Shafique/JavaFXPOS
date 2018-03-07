@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.pos.PosMainController">
+   <children>
+      <TableView layoutX="14.0" layoutY="34.0" prefHeight="239.0" prefWidth="336.0">
+        <columns>
+          <TableColumn prefWidth="84.0" text="Product Id" />
+          <TableColumn prefWidth="62.0" text="Name" />
+            <TableColumn prefWidth="81.0" text="Quantity" />
+            <TableColumn prefWidth="49.0" text="Price" />
+            <TableColumn prefWidth="59.0" text="Total" />
+        </columns>
+      </TableView>
+      <Label layoutX="365.0" layoutY="34.0" prefHeight="25.0" prefWidth="97.0" text="Add Product" />
+      <GridPane layoutX="365.0" layoutY="67.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="10.0" prefWidth="65.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="135.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <FlowPane>
+               <children>
+                  <Label text="Id" />
+               </children>
+            </FlowPane>
+            <FlowPane GridPane.rowIndex="1">
+               <children>
+                  <Label text="Name" />
+               </children>
+            </FlowPane>
+            <FlowPane GridPane.rowIndex="2">
+               <children>
+                  <Label text="Quantity" />
+               </children>
+            </FlowPane>
+            <FlowPane GridPane.rowIndex="3">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="53.0" text="Price" />
+               </children>
+            </FlowPane>
+            <FlowPane GridPane.rowIndex="4" />
+            <TextField text="1" GridPane.columnIndex="1" />
+            <TextField text="Rarlux Lock" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField text="3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField editable="false" text="50" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <Label layoutX="365.0" layoutY="257.0" prefHeight="17.0" prefWidth="38.0" text="Total" />
+      <TextField editable="false" layoutX="430.0" layoutY="253.0" prefHeight="25.0" prefWidth="133.0" text="150" />
+      <Button layoutX="436.0" layoutY="301.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="135.0" text="Confirm Sale" />
+   </children>
+</AnchorPane>
