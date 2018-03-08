@@ -13,6 +13,9 @@ public class DBEmulator {
     private static List<User> userList = Arrays.asList(
             new User(1,"1","1","","","")
     );
+    private static List<Invoice> invoiceList= Arrays.asList(
+            new Invoice()
+    );
 
 
     public static boolean addCategory(Category item){
@@ -66,7 +69,7 @@ public class DBEmulator {
         return DBEmulator.itemList.add(item);
     }
     public static Item getItem(int id){
-        Item result = new Item(-1,-1,"",-1,-1);
+        Item result = new Item(-1,-1,"",-1,-1,"Hello World");
         for (Item item:itemList
                 ) {
             if(item.getId() == id ){
@@ -269,6 +272,54 @@ public class DBEmulator {
             }
         }
         return result;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public static boolean addInvoice(Invoice item){
+        DBEmulator.invoiceList.add(item);
+        return true;
+    }
+    public static Invoice getInvoice(int id){
+        Invoice result = new Invoice();
+        for (Invoice item:invoiceList
+                ) {
+            if(item.getId() == id ){
+                result = item;
+                break;
+            }
+        }
+        return result;
+    }
+    public static boolean updateInvoice(int id, Invoice item){
+        int itemIndex=-1;
+        int listSize = invoiceList.size();
+        Invoice[] array = new Invoice[listSize];
+        array = invoiceList.toArray(array);
+        for(int i=0; i<listSize; i++){
+            if(array[i].getId() == id){
+                itemIndex = i;
+                break;
+            }
+        }
+        array[itemIndex] = item;
+        invoiceList = Arrays.asList(array);
+        return true;
+    }
+    public static boolean deleteInvoice(int id){
+        DBEmulator.invoiceList.remove(id);
+        return true;
+    }
+    public static List<Invoice> getAllInvoices(){
+        return invoiceList;
     }
 
 

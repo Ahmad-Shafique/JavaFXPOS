@@ -83,7 +83,7 @@ public class LoginController implements Initializable {
             // System.out.println("<<<<<    Username: " + username + " || Password: " + password + "     >>>>>>>");
 
             if(service.authenticate(username,password))
-                WindowChange.Activate(event,"../display/fxml/user/dashboard.fxml", "User - Dashboard");
+                WindowChange.Activate(event,"../display/fxml/admin/dashboard.fxml", "User - Dashboard");
         }
     }
 

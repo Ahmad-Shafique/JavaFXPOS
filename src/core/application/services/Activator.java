@@ -8,6 +8,7 @@ public class Activator {
         else if(repositoryName == "Item") return new ItemCRUD();
         else if(repositoryName == "Sale") return new SaleCRUD();
         else if(repositoryName == "User") return new UserCRUD();
+        else if(repositoryName == "Invoice") return new InvoiceCRUD();
         return new Object();
     }
 }
