@@ -2,9 +2,11 @@ package core.application.services;
 
 import core.domain.services.interfaces.ICRUD;
 
+import java.util.List;
+
 class BaseCRUD<Entity> implements ICRUD<Entity>{
 
-    protected BaseCRUD(){
+    BaseCRUD(){
 
     }
 
@@ -24,7 +26,12 @@ class BaseCRUD<Entity> implements ICRUD<Entity>{
     }
 
     @Override
-    public boolean delete(Entity entity) {
+    public boolean delete(int id) {
         return false;
+    }
+
+    @Override
+    public List<Entity> getAll() {
+        return null;
     }
 }

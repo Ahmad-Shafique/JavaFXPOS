@@ -45,8 +45,8 @@
                         <Label prefHeight="17.0" prefWidth="60.0" text="Password" />
                      </children>
                   </FlowPane>
-                  <TextField GridPane.columnIndex="1" />
-                  <TextField prefHeight="25.0" prefWidth="219.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField id="usernameField" GridPane.columnIndex="1" />
+                  <TextField id="passwordField" prefHeight="25.0" prefWidth="219.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <ButtonBar GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <buttons>
                         <Button mnemonicParsing="false" onAction="#loginButtonClick" text="Login" />

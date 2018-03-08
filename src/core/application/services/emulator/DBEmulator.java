@@ -3,21 +3,21 @@ package core.application.services.emulator;
 import core.domain.model.entities.*;
 
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class DBEmulator {
     private static List<Category> categoryList;
     private static List<Item> itemList;
     private static List<Sale> saleList;
     private static List<SaleItem> saleItemList;
-    private static List<User> userList;
+    private static List<User> userList = Arrays.asList(
+            new User(1,"1","1","","","")
+    );
 
 
     public static boolean addCategory(Category item){
-        return DBEmulator.categoryList.add(item);
+        DBEmulator.categoryList.add(item);
+        return true;
     }
     public static Category getCategory(int id){
         Category result = new Category(-1,"");
@@ -48,6 +48,9 @@ public class DBEmulator {
     public static boolean deleteCategory(int id){
         DBEmulator.categoryList.remove(id);
         return true;
+    }
+    public static List<Category> getAllCategories(){
+        return categoryList;
     }
 
 
@@ -91,6 +94,9 @@ public class DBEmulator {
     public static boolean deleteItem(int id){
         DBEmulator.itemList.remove(id);
         return true;
+    }
+    public static List<Item> getAllItems(){
+        return itemList;
     }
 
 
@@ -137,6 +143,9 @@ public class DBEmulator {
     public static boolean deleteSaleItem(int id){
         DBEmulator.saleItemList.remove(id);
         return true;
+    }
+    public static List<SaleItem> getAllSaleItems(){
+        return saleItemList;
     }
 
 
@@ -189,6 +198,12 @@ public class DBEmulator {
         DBEmulator.saleList.remove(id);
         return true;
     }
+    public static List<Sale> getAllSales(){
+        return saleList;
+    }
+
+
+
 
 
 
@@ -228,6 +243,16 @@ public class DBEmulator {
     public static boolean deleteUser(int id){
         DBEmulator.userList.remove(id);
         return true;
+    }
+    public static List<User> getAllUsers(){
+        return userList;
+    }
+    public static boolean authenticateUser(String username, String password){
+        for (User user: userList
+             ) {
+            if(user.getUserName() == username && user.getPassword()==password) return true;
+        }
+        return false;
     }
 
 
