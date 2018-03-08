@@ -36,6 +36,12 @@ class UserCRUD extends BaseCRUD<User> implements IUserCRUD {
 
     @Override
     public boolean authenticate(String name, String Password) {
-        return DBEmulator.authenticateUser(name,Password);
+        User user = DBEmulator.authenticateUser(name);
+//        System.out.println("returned from db: "+ user.getUserName() + " || " + user.getPassword());
+        if(user.getPassword().equals(Password.trim())){
+            return true;
+        }else {
+            return false;
+        }
     }
 }

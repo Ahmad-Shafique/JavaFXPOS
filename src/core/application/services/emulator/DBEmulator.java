@@ -247,12 +247,28 @@ public class DBEmulator {
     public static List<User> getAllUsers(){
         return userList;
     }
-    public static boolean authenticateUser(String username, String password){
+    public static User authenticateUser(String username){
+/*        System.out.println("Inside the db");
+        System.out.println("passed param is : " + username);
+        System.out.println("Users available now: ");*/
+/*        for (User user: userList
+             ) {
+            System.out.println("Username : " + username);
+            if(user.getUserName().equals(username) ) System.out.println("Found desired username in db");
+        }*/
+        User result = new User();
+
         for (User user: userList
              ) {
-            if(user.getUserName() == username && user.getPassword()==password) return true;
+            if( user.getUserName().trim().equals(username.trim() )) {
+                /*System.out.println("Found user name in DB");*/
+                return user;
+                // result = user;
+                // System.out.println(result.getUserName());
+                // break;
+            }
         }
-        return false;
+        return result;
     }
 
 

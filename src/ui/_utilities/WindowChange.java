@@ -1,6 +1,7 @@
 package ui._utilities;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -12,6 +13,19 @@ public class WindowChange {
     private static WindowChange _instance;
 
     public static void Activate(ActionEvent event, String path, String title) throws Exception {
+        if(WindowChange._instance != null){
+            // System.out.println("Inside if method of WindowChange.Activate()");
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+            WindowChange._instance.windows(path, title);
+        }else {
+            // System.out.println("Inside else method of WindowChange.Activate()");
+            WindowChange._instance = new WindowChange();
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+            WindowChange._instance.windows(path, title);
+        }
+    }
+
+    public static void Activate(Event event, String path, String title) throws Exception {
         if(WindowChange._instance != null){
             // System.out.println("Inside if method of WindowChange.Activate()");
             ((Node) (event.getSource())).getScene().getWindow().hide();
