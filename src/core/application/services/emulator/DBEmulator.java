@@ -7,14 +7,18 @@ import java.util.*;
 
 public class DBEmulator {
     private static List<Category> categoryList;
-    private static List<Item> itemList;
+    private static List<Item> itemList= Arrays.asList(
+            new Item(1,1,"Kachchi Biriyani", 250,10,"Yummy !!"),
+            new Item(2,1,"Chicken Biriyani", 240,10,"Oh my !!")
+    );
     private static List<Sale> saleList;
     private static List<SaleItem> saleItemList;
     private static List<User> userList = Arrays.asList(
             new User(1,"1","1","","","")
     );
     private static List<Invoice> invoiceList= Arrays.asList(
-            new Invoice()
+            new Invoice(1,1, "Janice", 500, 500, 500, 0, new Date(), 0.0, 0.0),
+            new Invoice(2,1, "Janice", 275, 300, 500, 200, new Date(), 25.0, 0.0)
     );
 
 

@@ -2,6 +2,7 @@ package ui.controllers.admin;
 
 import core.application.services.Activator;
 import core.domain.model.entities.*;
+import core.domain.model.entities._utilities.DateBreakdown;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
 import javafx.animation.TranslateTransition;
@@ -26,6 +27,7 @@ import ui._utilities.WindowChange;
 
 import java.net.URL;
 import java.text.DateFormatSymbols;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -89,20 +91,28 @@ public class AdminDashboardController implements Initializable {
     private void loadInvoiceChart() {
 
 
-        console.log("Entered loadInvoiceChart method");
+//        console.log("Entered loadInvoiceChart method");
 
         String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
         ObservableList lists = FXCollections.observableArrayList(months);
         XYChart.Series series = new XYChart.Series();
 
-        console.log("Initiated chartXY series");
+//        console.log("Initiated chartXY series");
 
-        for (Invoice i : invoiceService.getAll()) {
-            String month = convertDate(i.getTransactionTime().toString());
+        List<Invoice> invoiceList = invoiceService.getAll();
+
+        for (Invoice i : invoiceList) {
+            String month = DateBreakdown.getInstance().getMonth(i.getTransactionTime());
+//                    convertDate(i.getTransactionTime().toString());
+
+//            console.log("month separated");
+
             series.getData().add(new XYChart.Data(month, i.getPayable()));
+
+//            console.log("Added: " + i.getPayable() + " || To the chart");
         }
 
-        console.log("Added data to chart");
+//        console.log("Added data to chart");
 
         series.setName("Sales");
         ixAxis.setCategories(lists);
@@ -113,12 +123,23 @@ public class AdminDashboardController implements Initializable {
 
     private void loadProductsChart() {
 
+        console.log("Entered method");
+
         ObservableList lists = FXCollections.observableArrayList();
         XYChart.Series<String, Double> series = new XYChart.Series<>();
 
-        for (Item p : itemService.getAll()) {
+        console.log("Initiated objects");
+
+        List<Item> itemList = itemService.getAll();
+
+        for (Item p : itemList) {
             series.getData().add(new XYChart.Data(p.getName(), p.getQuantityAvailable()));
+
+            console.log("Added data to chart");
+
             lists.add(p.getName());
+
+            console.log("added item to observable list");
         }
 
         series.setName("Products");
