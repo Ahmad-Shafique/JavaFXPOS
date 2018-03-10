@@ -3,8 +3,11 @@ package core.application.services;
 import core.application.services.emulator.DBEmulator;
 import core.domain.model.entities.Category;
 import core.domain.model.entities.Sale;
+import core.domain.services.classes.SalesReport;
 import core.domain.services.interfaces.ISaleCRUD;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 class SaleCRUD extends BaseCRUD<Sale> implements ISaleCRUD {
@@ -38,4 +41,11 @@ class SaleCRUD extends BaseCRUD<Sale> implements ISaleCRUD {
     public List<Sale> getSaleByProductId(int productId) {
         return this.getAll();
     }
+
+    @Override
+    public List<SalesReport> getSalesReports(){
+      return Arrays.asList(
+              new SalesReport(1,1000,new Date(), "Kachchi Biriyani (4X - 250)")
+      );
+    };
 }
