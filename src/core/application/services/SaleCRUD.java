@@ -3,10 +3,11 @@ package core.application.services;
 import core.application.services.emulator.DBEmulator;
 import core.domain.model.entities.Category;
 import core.domain.model.entities.Sale;
+import core.domain.services.interfaces.ISaleCRUD;
 
 import java.util.List;
 
-class SaleCRUD extends BaseCRUD<Sale> {
+class SaleCRUD extends BaseCRUD<Sale> implements ISaleCRUD {
     @Override
     public boolean create(Sale entity) {
         return DBEmulator.addSale(entity);
@@ -32,4 +33,9 @@ class SaleCRUD extends BaseCRUD<Sale> {
         return DBEmulator.getAllSales();
     }
 
+
+    @Override
+    public List<Sale> getSaleByProductId(int productId) {
+        return this.getAll();
+    }
 }

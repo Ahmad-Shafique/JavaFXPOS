@@ -11,7 +11,7 @@ public class DBEmulator {
             new Item(1,1,"Kachchi Biriyani", 250,10,"Yummy !!"),
             new Item(2,1,"Chicken Biriyani", 240,10,"Oh my !!")
     );
-    private static List<Sale> saleList;
+    private static List<Sale> saleList = createSaleList();
     private static List<SaleItem> saleItemList;
     private static List<User> userList = Arrays.asList(
             new User(1,"1","1","","","")
@@ -20,6 +20,41 @@ public class DBEmulator {
             new Invoice(1,1, "Janice", 500, 500, 500, 0, new Date(), 0.0, 0.0),
             new Invoice(2,1, "Janice", 275, 300, 500, 200, new Date(), 25.0, 0.0)
     );
+
+
+
+
+
+    private static List<Sale> createSaleList(){
+
+        List<SaleItem> saleItemList1 = Arrays.asList(
+                new SaleItem(1, 1, 1, 1, 250),
+                new SaleItem(2, 1, 2, 2, 480)
+        );
+        List<SaleItem> saleItemList2 = Arrays.asList(
+                new SaleItem(1, 1, 1, 4, 1000)
+        );
+
+        List<Sale> returnable = Arrays.asList(
+                new Sale(1, 1, 730, new Date(), saleItemList1),
+                new Sale(2, 1, 1000, new Date(), saleItemList2)
+        );
+
+        return returnable;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public static boolean addCategory(Category item){

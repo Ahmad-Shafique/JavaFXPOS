@@ -2,7 +2,7 @@ package core.domain.model.entities;
 
 import java.util.Optional;
 
-public class Item extends BaseEntity{
+public class Item extends BaseSerializableEntity{
     private int categoryId;
     private String name;
     private double price;

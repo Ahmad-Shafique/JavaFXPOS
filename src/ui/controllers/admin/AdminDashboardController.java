@@ -172,45 +172,53 @@ public class AdminDashboardController implements Initializable {
     @FXML
     public void productAction(ActionEvent event) throws Exception {
 
-        windows("/fxml/Product.fxml", "Product", event);
+//        windows("/fxml/Product.fxml", "Product", event);
+        WindowChange.Activate(event, "/fxml/Product.fxml", "Product", "/images/logo.png", "internal");
     }
 
     @FXML
     public void categoryAction(ActionEvent event) throws Exception {
 
-        windows("/fxml/Category.fxml", "Category", event);
+//        windows("/fxml/Category.fxml", "Category", event);
+        WindowChange.Activate(event, "/fxml/Category.fxml", "Category", "/images/logo.png", "internal");
     }
 
     @FXML
     public void purchaseAction(ActionEvent event) throws Exception {
 
-        windows("/fxml/Purchase.fxml", "Purchase", event);
+//        windows("/fxml/Purchase.fxml", "Purchase", event);
+        WindowChange.Activate(event, "/fxml/Purchase.fxml", "Purchase", "/images/logo.png", "internal");
     }
 
     @FXML
     public void salesAction(ActionEvent event) throws Exception {
 
-        windows("/fxml/Sales.fxml", "Sales", event);
+//        windows("/fxml/Sales.fxml", "Sales", event);
+        WindowChange.Activate(event, "/fxml/Sales.fxml", "Sales", "/images/logo.png", "internal");
     }
 
     @FXML
     public void supplierAction(ActionEvent event) throws Exception {
-        windows("/fxml/Supplier.fxml", "Supplier", event);
+//        windows("/fxml/Supplier.fxml", "Supplier", event);
+        WindowChange.Activate(event, "/fxml/Supplier.fxml", "Supplier", "/images/logo.png", "internal");
     }
 
     @FXML
     public void reportAction(ActionEvent event) throws Exception {
-        windows("/fxml/Report.fxml", "Report", event);
+//        windows("/fxml/Report.fxml", "Report", event);
+        WindowChange.Activate(event, "/fxml/Report.fxml", "Report", "/images/logo.png", "internal");
     }
 
     @FXML
     public void staffAction(ActionEvent event) throws Exception {
-        windows("/fxml/Employee.fxml", "Employee", event);
+//        windows("/fxml/Employee.fxml", "Employee", event);
+        WindowChange.Activate(event, "/fxml/Employee.fxml", "Employee", "/images/logo.png", "internal");
     }
 
     @FXML
     public void logoutAction(ActionEvent event) throws Exception {
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        WindowChange.Activate(event, "/fxml/Login.fxml", "Inventory:: Version 1.0", "/images/logo.png", "logout");
+        /*((Node) (event.getSource())).getScene().getWindow().hide();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
         Stage stage = new Stage();
         root.setOnMousePressed((MouseEvent e) -> {
@@ -226,10 +234,10 @@ public class AdminDashboardController implements Initializable {
         stage.getIcons().add(new Image("/images/logo.png"));
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
     }
 
-    private void windows(String path, String title, ActionEvent event) throws Exception {
+  /*  private void windows(String path, String title, ActionEvent event) throws Exception {
 
         double width = ((Node) event.getSource()).getScene().getWidth();
         double height = ((Node) event.getSource()).getScene().getHeight();
@@ -241,5 +249,5 @@ public class AdminDashboardController implements Initializable {
         stage.getIcons().add(new Image("/images/logo.png"));
         stage.setScene(scene);
         stage.show();
-    }
+    }*/
 }
