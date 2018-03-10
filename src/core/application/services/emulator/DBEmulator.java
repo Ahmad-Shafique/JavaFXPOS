@@ -6,13 +6,19 @@ import java.time.Instant;
 import java.util.*;
 
 public class DBEmulator {
-    private static List<Category> categoryList;
+    private static List<Category> categoryList = Arrays.asList(
+            new Category(1,"Biriyani","Rice + Masala + Meat"),
+            new Category(2,"Khichuri","Rice + Meat")
+    );
     private static List<Item> itemList= Arrays.asList(
             new Item(1,1,"Kachchi Biriyani", 250,10,"Yummy !!"),
             new Item(2,1,"Chicken Biriyani", 240,10,"Oh my !!")
     );
     private static List<Sale> saleList = createSaleList();
-    private static List<SaleItem> saleItemList;
+    private static List<SaleItem> saleItemList = Arrays.asList(
+            new SaleItem(1, 1, 1, 1, 250),
+            new SaleItem(2, 1, 2, 2, 480)
+        );
     private static List<User> userList = Arrays.asList(
             new User(1,"1","1","","","")
     );

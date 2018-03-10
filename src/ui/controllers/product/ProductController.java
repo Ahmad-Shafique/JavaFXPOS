@@ -288,7 +288,7 @@ public class ProductController implements Initializable{
         productTable.getSelectionModel().clearSelection();
     }*/
     public void deleteAction(ActionEvent event) {
-        console.log("Edit action");
+        console.log("delete action");
     }
 
 }
