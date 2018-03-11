@@ -3,6 +3,7 @@ package ui.controllers.product;
 import core.application.services.Activator;
 import core.domain.model.entities.Category;
 import core.domain.model.entities.Item;
+import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
 import core.domain.services.interfaces.ICategoryCRUD;
 import javafx.animation.TranslateTransition;
@@ -32,6 +33,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import ui._utilities.TransferService;
+import ui._utilities.WindowChange;
 
 import java.net.URL;
 import java.text.DateFormatSymbols;
@@ -85,7 +87,7 @@ public class EditController implements Initializable {
     }
 
     @FXML
-    public void handleSave(ActionEvent event) {
+    public void handleSave(ActionEvent event) throws Exception {
 
         if (validateInput()) {
             Category category = categoryService.read(categoryBox.getSelectionModel().getSelectedIndex() + 1);
@@ -96,19 +98,22 @@ public class EditController implements Initializable {
                     Double.parseDouble(priceField.getText()),
                     Integer.parseInt(quantityField.getText()),
                     descriptionArea.getText()
-
             );
 
             itemService.update(editedProduct.getId(),editedProduct);
-            PRODUCTLIST.set((int) selectedProductId, editedProduct);
+            console.log("returned form emulator");
+            // PRODUCTLIST.set((int) selectedProductId, editedProduct);
 
-            ((Stage) saveButton.getScene().getWindow()).close();
+            // ((Stage) saveButton.getScene().getWindow()).close();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Successful");
             alert.setHeaderText("Product Updated!");
             alert.setContentText("Product is updated successfully");
             alert.showAndWait();
+
+            WindowChange.Activate(event,"../display/fxml/product/product.fxml","Product list", "ui/display/resources/images/product.png","internal");
+
         }
     }
 
