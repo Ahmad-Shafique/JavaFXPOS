@@ -1,6 +1,7 @@
 package core.application.services.emulator;
 
 import core.domain.model.entities.*;
+import core.domain.model.entities._utilities.console;
 
 import java.time.Instant;
 import java.util.*;
@@ -100,7 +101,14 @@ public class DBEmulator {
     public static List<Category> getAllCategories(){
         return categoryList;
     }
-
+    public static List<String> getAllCategoryName(){
+        List<String> categoryNames = new ArrayList<String>();
+        for (Category item: categoryList
+             ) {
+            categoryNames.add(item.getName());
+        }
+        return categoryNames;
+    }
 
 
 
@@ -111,7 +119,13 @@ public class DBEmulator {
 
 
     public static boolean addItem(Item item){
-        return DBEmulator.itemList.add(item);
+/*        console.log("Entered db emulator");
+        console.log("Passed object: \nId:"+item.getId()+"\nCategoryId:"+item.getCategoryId()+"\nName:"
+                        +item.getName()+"\nPrice:"+item.getPrice()+"\nQuantity:"+item.getQuantityAvailable()
+                        +"\nDescription:"+item.getDescription());
+        itemList.add(item);
+        console.log("Added to list in DB emulator");*/
+        return true;
     }
     public static Item getItem(int id){
         Item result = new Item(-1,-1,"",-1,-1,"Hello World");

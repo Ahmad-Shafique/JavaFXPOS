@@ -2,10 +2,11 @@ package core.application.services;
 
 import core.application.services.emulator.DBEmulator;
 import core.domain.model.entities.*;
+import core.domain.services.interfaces.ICategoryCRUD;
 
 import java.util.List;
 
-class CategoryCRUD extends BaseCRUD<Category>  {
+class CategoryCRUD extends BaseCRUD<Category> implements ICategoryCRUD {
 
 
     @Override
@@ -31,5 +32,10 @@ class CategoryCRUD extends BaseCRUD<Category>  {
     @Override
     public List<Category> getAll(){
         return DBEmulator.getAllCategories();
+    }
+
+    @Override
+    public List<String> getAllCategoryNames() {
+        return DBEmulator.getAllCategoryName();
     }
 }

@@ -183,52 +183,52 @@ public class ProductController implements Initializable{
 
     @FXML
     public void adminAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "/fxml/Admin.fxml", "Admin" );
+        WindowChange.Activate(event, "ui/display/resources/fxml/Admin.fxml", "Admin" );
     }
 
     @FXML
     public void categoryAction(ActionEvent event) throws Exception {
 
-        WindowChange.Activate(event, "/fxml/Category.fxml", "Category");
+        WindowChange.Activate(event, "ui/display/resources/fxml/Category.fxml", "Category");
     }
 
     @FXML
     public void purchaseAction(ActionEvent event) throws Exception {
 
-        WindowChange.Activate(event, "/fxml/Purchase.fxml", "Purchase");
+        WindowChange.Activate(event, "ui/display/resources/fxml/Purchase.fxml", "Purchase");
     }
 
     @FXML
     public void salesAction(ActionEvent event) throws Exception {
 
-        WindowChange.Activate(event, "/fxml/Sales.fxml", "Sales");
+        WindowChange.Activate(event, "ui/display/resources/fxml/Sales.fxml", "Sales");
     }
 
     @FXML
     public void reportAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "/fxml/Report.fxml", "Report");
+        WindowChange.Activate(event, "ui/display/resources/fxml/Report.fxml", "Report");
     }
 
     @FXML
     public void supplierAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "/fxml/Supplier.fxml", "Supplier");
+        WindowChange.Activate(event, "ui/display/resources/fxml/Supplier.fxml", "Supplier");
     }
 
     @FXML
     public void staffAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "/fxml/Employee.fxml", "Employee");
+        WindowChange.Activate(event, "ui/display/resources/fxml/Employee.fxml", "Employee");
     }
 
     @FXML
     public void logoutAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "/fxml/Login.fxml", "Inventory:: Version 1.0", "/images/logo.png", "logout");
+        WindowChange.Activate(event, "/fxml/Login.fxml", "Inventory:: Version 1.0", "ui/display/resources/images/logo.png", "logout");
     }
 
 
     @FXML
     public void addAction(ActionEvent event) throws Exception {
 
-        WindowChange.Activate(event, "/fxml/product/Add.fxml", "New Product", "/images/logo.png", "internal");
+        WindowChange.Activate(event, "../display/fxml/product/Add.fxml", "New Product", "ui/display/resources/images/logo.png", "internal");
 
     }
 

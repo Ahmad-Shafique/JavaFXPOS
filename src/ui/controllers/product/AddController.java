@@ -3,7 +3,9 @@ package ui.controllers.product;
 import core.application.services.Activator;
 import core.domain.model.entities.Category;
 import core.domain.model.entities.Item;
+import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
+import core.domain.services.interfaces.ICategoryCRUD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import ui._utilities.WindowChange;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,7 +22,7 @@ import java.util.ResourceBundle;
 public class AddController implements Initializable {
 
     private ICRUD<Item> itemService;
-    private ICRUD<Category> categoryService;
+    private ICategoryCRUD categoryService;
     private ObservableList<Item> PRODUCTLIST = FXCollections.observableArrayList();
 
     @FXML
@@ -34,38 +37,50 @@ public class AddController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         itemService = (ICRUD<Item>) new Activator().activate("Item");
-        categoryService = (ICRUD<Category>) new Activator().activate("Category");
+        categoryService = (ICategoryCRUD) new Activator().activate("Category");
 //        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryService.getAll());
-        ObservableList<String> categoryList = FXCollections.observableArrayList("Category1","Category2");
+        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryService.getAllCategoryNames());
         categoryBox.setItems(categoryList);
     }
 
     @FXML
-    public void handleSave(ActionEvent event) {
+    public void handleSave(ActionEvent event) throws Exception {
+
+        console.log("Entered handleSave method");
 
         if (validateInput()) {
 
             Category category = categoryService.read(categoryBox.getSelectionModel().getSelectedIndex() + 1);
+
+            console.log("category fetched");
+
             Item product = new Item(
-                    -1,
-                    -1,
+                    5,
+                    category.getId(),
                     nameField.getText(),
                     Double.parseDouble(priceField.getText()),
                     Integer.parseInt(quantityField.getText().toString()),
                     descriptionArea.getText()
             );
 
+            console.log("item created");
+
             itemService.create(product);
+
+            console.log("Product saved !!!");
+
             PRODUCTLIST.clear();
             PRODUCTLIST.addAll(itemService.getAll());
 
-            ((Stage) saveButton.getScene().getWindow()).close();
+//            ((Stage) saveButton.getScene().getWindow()).close();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Successful");
             alert.setHeaderText("Product is added");
             alert.setContentText("Product is added successfully");
             alert.showAndWait();
+
+            WindowChange.Activate(event,"../display/fxml/product/product.fxml","Product list", "ui/display/resources/images/product.png","internal");
         }
     }
 
@@ -103,6 +118,8 @@ public class AddController implements Initializable {
         }
 
         if (errorMessage.length() == 0) {
+            console.log("Validation complete");
+
             return true;
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -113,6 +130,8 @@ public class AddController implements Initializable {
 
             return false;
         }
+
+
     }
 
     @FXML
