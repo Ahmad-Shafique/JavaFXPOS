@@ -154,7 +154,7 @@ public class DBEmulator {
         return true;
     }
     public static boolean deleteItem(int id){
-        DBEmulator.itemList.remove(id);
+        // DBEmulator.itemList.remove(id);
         return true;
     }
     public static List<Item> getAllItems(){

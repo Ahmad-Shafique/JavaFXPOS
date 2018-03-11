@@ -183,45 +183,29 @@ public class ProductController implements Initializable{
 
     @FXML
     public void adminAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "ui/display/resources/fxml/Admin.fxml", "Admin" );
+        WindowChange.Activate(event, "../display/fxml/admin/dashboard.fxml", "Admin" );
     }
 
     @FXML
     public void categoryAction(ActionEvent event) throws Exception {
 
-        WindowChange.Activate(event, "ui/display/resources/fxml/Category.fxml", "Category");
-    }
-
-    @FXML
-    public void purchaseAction(ActionEvent event) throws Exception {
-
-        WindowChange.Activate(event, "ui/display/resources/fxml/Purchase.fxml", "Purchase");
+        WindowChange.Activate(event, "../display/fxml/category/category.fxml", "Category");
     }
 
     @FXML
     public void salesAction(ActionEvent event) throws Exception {
 
-        WindowChange.Activate(event, "ui/display/resources/fxml/Sales.fxml", "Sales");
+        WindowChange.Activate(event, "../display/fxml/salesreport/sales.fxml", "Sales");
     }
 
     @FXML
-    public void reportAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "ui/display/resources/fxml/Report.fxml", "Report");
-    }
-
-    @FXML
-    public void supplierAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "ui/display/resources/fxml/Supplier.fxml", "Supplier");
-    }
-
-    @FXML
-    public void staffAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "ui/display/resources/fxml/Employee.fxml", "Employee");
+    public void posAction(ActionEvent event) throws Exception {
+        WindowChange.Activate(event, "../display/fxml/pos/main.fxml", "POS Window");
     }
 
     @FXML
     public void logoutAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "/fxml/Login.fxml", "Inventory:: Version 1.0", "ui/display/resources/images/logo.png", "logout");
+        WindowChange.Activate(event, "../display/fxml/login/login.fxml", "JFXPOS :: Version 1.0", "ui/display/resources/images/logo.png", "logout");
     }
 
 
@@ -281,8 +265,21 @@ public class ProductController implements Initializable{
 
         productTable.getSelectionModel().clearSelection();
     }*/
-    public void deleteAction(ActionEvent event) {
-        console.log("delete action");
+    public void deleteAction(ActionEvent event) throws Exception {
+
+//        console.log("delete action");
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete");
+        alert.setHeaderText("Delete Product");
+        alert.setContentText("Are you sure?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Item selectedProduct = productTable.getSelectionModel().getSelectedItem();
+            itemService.delete(selectedProduct.getId());
+            WindowChange.Activate(event, "../display/fxml/product/product.fxml", "New Product", "ui/display/resources/images/logo.png", "internal");
+        }
     }
 
 }
