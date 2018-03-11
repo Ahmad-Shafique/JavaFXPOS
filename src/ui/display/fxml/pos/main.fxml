@@ -32,7 +32,7 @@
                                 <Insets />
                             </HBox.margin>
                             <image>
-                                <Image url="@../../images/logo.png" />
+                                <Image url="@../../resources/images/logo.png" />
                             </image>
                         </ImageView>
                     </children>

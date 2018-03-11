@@ -9,7 +9,7 @@
 }
 
 .close-button {
-    -fx-background-image: url("../images/close.png");
+    -fx-background-image: url("../resources/images/close.png");
     -fx-background-color: rgba(0, 102, 102, 1);
     -fx-background-repeat: no-repeat;
     -fx-background-size: 75%;

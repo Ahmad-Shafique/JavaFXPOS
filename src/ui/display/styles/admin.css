@@ -3,7 +3,7 @@
     -fx-background-color: rgba(23, 169, 168, 1);
     -fx-text-fill: rgba(255, 255, 247, 1);
     
-    -fx-background-image: url('../images/search.png');
+    -fx-background-image: url('../resources/images/search.png');
     -fx-background-repeat: no-repeat;
     -fx-background-position: right center;
     -fx-font-size: 18px;
@@ -38,17 +38,17 @@
 }
 
 .hamburger-button {
-    -fx-background-image: url("../images/menu.png");
+    -fx-background-image: url("../resources/images/menu.png");
     -fx-background-color: rgba(23, 169, 168, 1);
 }
 
 .open-menu {
-    -fx-background-image: url("../images/arrow.png");
+    -fx-background-image: url("../resources/images/arrow.png");
     -fx-background-color: rgba(23, 169, 168, 1);
 }
 
 .logout-button {
-    -fx-background-image: url("../images/logout.png");
+    -fx-background-image: url("../resources/images/logout.png");
 }
 
 .hamburger-button, .logout-button, .open-menu  {

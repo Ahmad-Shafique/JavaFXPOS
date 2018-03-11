@@ -1,5 +1,6 @@
 package ui._utilities;
 
+import core.domain.model.entities._utilities.console;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +32,11 @@ public class WindowChange {
     }
 
     public static void Activate(ActionEvent event, String path, String title, String imagePath, String changeType) throws Exception{
+
+//        console.log("Entered activator function");
+
+        if(WindowChange._instance == null) WindowChange._instance = new WindowChange();
+
         if(changeType.equals("internal")){
             WindowChange._instance.windowsInternal(event, path, title, imagePath);
         }else if(changeType.equals("logout")){
@@ -75,17 +81,40 @@ public class WindowChange {
 
     private void windowsInternal(ActionEvent event, String path, String title, String imagePath){
         try{
+//            console.log("entered function");
+
             double width = ((Node) event.getSource()).getScene().getWidth();
             double height = ((Node) event.getSource()).getScene().getHeight();
 
+//            console.log("width and height loaded");
+
             Parent root = FXMLLoader.load(getClass().getResource(path));
+
+//            console.log("fxml loaded");
+
             Scene scene = new Scene(root, width, height);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+//            console.log("Stage fetched");
+
             stage.setTitle(title);
+
+//            console.log("title set");
+
             stage.getIcons().add(new Image(imagePath));
+
+//            console.log("image set");
+
             stage.setScene(scene);
+
+//            console.log("scene set");
+
             stage.show();
+
+//            console.log("stage shown");
+
         }catch (Exception e){
+            console.log(e);
         }
     }
 
@@ -110,6 +139,7 @@ public class WindowChange {
             stage.setScene(scene);
             stage.show();
         }catch (Exception e){
+            console.log(e);
         }
     }
 }

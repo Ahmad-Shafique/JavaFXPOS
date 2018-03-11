@@ -14,7 +14,7 @@
 
 .search-field {
     -fx-text-fill: #000000;
-    -fx-background-image: url('../images/search.png');
+    -fx-background-image: url('../resources/images/search.png');
     -fx-background-repeat: no-repeat;
     -fx-background-position: right center;
     -fx-font-size: 17;
@@ -58,7 +58,7 @@
 }
 
 .logout-button {
-    -fx-background-image: url("../images/logout.png");
+    -fx-background-image: url("../resources/images/logout.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: 80%;
     -fx-background-position: center;
