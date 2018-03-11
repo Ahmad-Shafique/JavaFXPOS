@@ -30,6 +30,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import ui._utilities.TransferService;
 
 import java.net.URL;
 import java.text.DateFormatSymbols;
@@ -55,6 +56,7 @@ public class EditController implements Initializable {
     @FXML
     private Button saveButton;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         itemService = (ICRUD<Item>) new Activator().activate("Item");
@@ -63,11 +65,12 @@ public class EditController implements Initializable {
         ObservableList<String> categoryList = FXCollections.observableArrayList("Category1", "Category2");
         categoryBox.setItems(categoryList);
         resetValues();
+        setProduct();
     }
 
-    public void setProduct(Item product, int selectedProductId) {
-        this.product = product;
-        this.selectedProductId = selectedProductId;
+    public void setProduct() {
+        this.product = (Item) TransferService.fetchStoredObject();
+        this.selectedProductId = product.getId();
         setData();
     }
 

@@ -33,6 +33,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import ui._utilities.TransferService;
 import ui._utilities.WindowChange;
 
 import java.net.URL;
@@ -182,40 +183,40 @@ public class ProductController implements Initializable{
 
     @FXML
     public void adminAction(ActionEvent event) throws Exception {
-        windows("/fxml/Admin.fxml", "Admin", event);
+        WindowChange.Activate(event, "/fxml/Admin.fxml", "Admin" );
     }
 
     @FXML
     public void categoryAction(ActionEvent event) throws Exception {
 
-        windows("/fxml/Category.fxml", "Category", event);
+        WindowChange.Activate(event, "/fxml/Category.fxml", "Category");
     }
 
     @FXML
     public void purchaseAction(ActionEvent event) throws Exception {
 
-        windows("/fxml/Purchase.fxml", "Purchase", event);
+        WindowChange.Activate(event, "/fxml/Purchase.fxml", "Purchase");
     }
 
     @FXML
     public void salesAction(ActionEvent event) throws Exception {
 
-        windows("/fxml/Sales.fxml", "Sales", event);
+        WindowChange.Activate(event, "/fxml/Sales.fxml", "Sales");
     }
 
     @FXML
     public void reportAction(ActionEvent event) throws Exception {
-        windows("/fxml/Report.fxml", "Report", event);
+        WindowChange.Activate(event, "/fxml/Report.fxml", "Report");
     }
 
     @FXML
     public void supplierAction(ActionEvent event) throws Exception {
-        windows("/fxml/Supplier.fxml", "Supplier", event);
+        WindowChange.Activate(event, "/fxml/Supplier.fxml", "Supplier");
     }
 
     @FXML
     public void staffAction(ActionEvent event) throws Exception {
-        windows("/fxml/Employee.fxml", "Employee", event);
+        WindowChange.Activate(event, "/fxml/Employee.fxml", "Employee");
     }
 
     @FXML
@@ -223,19 +224,6 @@ public class ProductController implements Initializable{
         WindowChange.Activate(event, "/fxml/Login.fxml", "Inventory:: Version 1.0", "/images/logo.png", "logout");
     }
 
-    private void windows(String path, String title, ActionEvent event) throws Exception {
-
-        double width = ((Node) event.getSource()).getScene().getWidth();
-        double height = ((Node) event.getSource()).getScene().getHeight();
-
-        Parent root = FXMLLoader.load(getClass().getResource(path));
-        Scene scene = new Scene(root, width, height);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle(title);
-        stage.getIcons().add(new Image("/images/logo.png"));
-        stage.setScene(scene);
-        stage.show();
-    }
 
     @FXML
     public void addAction(ActionEvent event) throws Exception {
@@ -247,6 +235,12 @@ public class ProductController implements Initializable{
 
     public void editAction(ActionEvent event) throws Exception {
         console.log("Edit action");
+
+        Item selectedProduct = productTable.getSelectionModel().getSelectedItem();
+        TransferService.storeForTransfer(selectedProduct);
+
+        WindowChange.Activate(event, "../display/fxml/product/Edit.fxml", "Edit Product", "ui/display/resources/images/logo.png", "internal");
+
     }
 /*    @FXML
     public void editAction(ActionEvent event) throws Exception {
