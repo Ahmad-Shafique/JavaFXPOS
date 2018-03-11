@@ -14,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import ui._utilities.TransferService;
+import ui._utilities.WindowChange;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,16 +38,17 @@ public class EditController implements Initializable{
 
         service = (ICRUD<Category>) new Activator().activate("Category");
         resetValues();
+        setCategory();
     }
 
-    public void setCategory(Category category, long selectedCategoryId) {
-        this.category = category;
+    public void setCategory() {
+        this.category = (Category) TransferService.fetchStoredObject();
         this.selectedCategoryId = selectedCategoryId;
         setData();
     }
 
     @FXML
-    public void handleSave(ActionEvent event) {
+    public void handleSave(ActionEvent event) throws Exception {
 
         if (validateInput()) {
 
@@ -56,15 +59,18 @@ public class EditController implements Initializable{
             );
 
             service.update(editedCategory.getId(),editedCategory);
-            CATEGORYLIST.set((int) selectedCategoryId, editedCategory);
+            // CATEGORYLIST.set((int) selectedCategoryId, editedCategory);
 
-            ((Stage) saveButton.getScene().getWindow()).close();
+            // ((Stage) saveButton.getScene().getWindow()).close();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Successful");
             alert.setHeaderText("Category Updated!");
             alert.setContentText("Category is updated successfully");
             alert.showAndWait();
+
+            WindowChange.Activate(event,"../display/fxml/category/category.fxml","Category list", "ui/display/resources/images/category.png","internal");
+
         }
     }
 

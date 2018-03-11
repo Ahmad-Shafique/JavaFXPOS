@@ -65,7 +65,7 @@ public class DBEmulator {
 
 
     public static boolean addCategory(Category item){
-        DBEmulator.categoryList.add(item);
+        // DBEmulator.categoryList.add(item);
         return true;
     }
     public static Category getCategory(int id){
@@ -95,7 +95,7 @@ public class DBEmulator {
         return true;
     }
     public static boolean deleteCategory(int id){
-        DBEmulator.categoryList.remove(id);
+        // DBEmulator.categoryList.remove(id);
         return true;
     }
     public static List<Category> getAllCategories(){

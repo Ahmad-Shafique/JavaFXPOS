@@ -5,6 +5,7 @@ import core.domain.model.entities.Category;
 import core.domain.model.entities.Item;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
+import core.domain.services.interfaces.ICategoryCRUD;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -27,6 +28,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import ui._utilities.TransferService;
 import ui._utilities.WindowChange;
 
 import java.net.URL;
@@ -35,7 +37,7 @@ import java.util.ResourceBundle;
 
 public class CategoryController implements Initializable {
 
-    private ICRUD<Category> service;
+    private ICategoryCRUD service;
     private ObservableList<Category> CATEGORYLIST = FXCollections.observableArrayList();
 
     @FXML
@@ -55,7 +57,7 @@ public class CategoryController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        service = (ICRUD<Category>) new Activator().activate("Category");
+        service = (ICategoryCRUD) new Activator().activate("Category");
 
         drawerAction();
         loadData();
@@ -129,55 +131,45 @@ public class CategoryController implements Initializable {
 
     @FXML
     public void adminAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "/fxml/Admin.fxml", "Admin");
+        WindowChange.Activate(event, "../display/fxml/admin/dashboard.fxml", "Admin");
     }
 
     @FXML
     public void productAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "/fxml/Product.fxml", "Product");
-    }
-
-    @FXML
-    public void purchaseAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "/fxml/Purchase.fxml", "Purchase");
+        WindowChange.Activate(event, "../display/fxml/product/product.fxml", "Product");
     }
 
     @FXML
     public void salesAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "/fxml/Sales.fxml", "Sales");
+        WindowChange.Activate(event, "../display/fxml/salesreport/sales.fxml", "Sales");
     }
 
     @FXML
-    public void supplierAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event,"/fxml/Supplier.fxml", "Supplier");
-    }
-
-    @FXML
-    public void reportAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event,"/fxml/Report.fxml", "Report");
-    }
-
-    @FXML
-    public void staffAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event,"/fxml/Employee.fxml", "Employee");
+    public void posAction(ActionEvent event) throws Exception {
+        WindowChange.Activate(event,"../display/fxml/pos/main.fxml", "POS Window");
     }
 
     @FXML
     public void logoutAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "/fxml/Login.fxml", "Inventory:: Version 1.0", "/images/logo.png", "logout");
+        WindowChange.Activate(event, "../display/fxml/login/login.fxml", "JFXPOS :: Version 1.0", "ui/display/resources/images/logo.png", "logout");
 
     }
 
     @FXML
     public void addAction(ActionEvent event) throws Exception {
 
-        WindowChange.Activate(event, "/fxml/category/Add.fxml", "New Product", "/images/logo.png", "internal");
+        WindowChange.Activate(event, "../display/fxml/category/add.fxml", "New Category", "ui/display/resources/images/logo.png", "internal");
     }
 
     @FXML
     public void editAction(ActionEvent event) throws Exception {
 
-        console.log("Edit action");
+//        console.log("Edit action");
+
+        Category selectedCategory = categoryTable.getSelectionModel().getSelectedItem();
+        TransferService.storeForTransfer(selectedCategory);
+        WindowChange.Activate(event, "../display/fxml/category/edit.fxml", "Edit Category", "ui/display/resources/images/logo.png", "internal");
+
 
         /*Category selectedCategory = categoryTable.getSelectionModel().getSelectedItem();
         int selectedCategoryId = categoryTable.getSelectionModel().getSelectedIndex();
@@ -206,9 +198,23 @@ public class CategoryController implements Initializable {
     }
 
     @FXML
-    public void deleteAction(ActionEvent event) {
+    public void deleteAction(ActionEvent event) throws Exception{
 
-        console.log("delete action");
+//        console.log("delete action");
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete");
+        alert.setHeaderText("Delete Product");
+        alert.setContentText("Are you sure?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Category selectedCategory = categoryTable.getSelectionModel().getSelectedItem();
+
+            service.delete(selectedCategory.getId());
+            WindowChange.Activate(event, "../display/fxml/category/category.fxml", "Category List", "ui/display/resources/images/logo.png", "internal");
+
+        }
 
         /*Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete");

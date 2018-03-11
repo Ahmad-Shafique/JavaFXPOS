@@ -223,7 +223,7 @@ public class ProductController implements Initializable{
         Item selectedProduct = productTable.getSelectionModel().getSelectedItem();
         TransferService.storeForTransfer(selectedProduct);
 
-        WindowChange.Activate(event, "../display/fxml/product/Edit.fxml", "Edit Product", "ui/display/resources/images/logo.png", "internal");
+        WindowChange.Activate(event, "../display/fxml/product/edit.fxml", "Edit Product", "ui/display/resources/images/logo.png", "internal");
 
     }
 /*    @FXML

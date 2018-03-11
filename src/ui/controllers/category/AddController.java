@@ -14,13 +14,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import ui._utilities.WindowChange;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AddController implements Initializable {
 
-    private ObservableList<Category> CATEGORYLIST = FXCollections.observableArrayList();
+    // private ObservableList<Category> CATEGORYLIST = FXCollections.observableArrayList();
 
     @FXML
     private TextField typeField;
@@ -42,7 +43,7 @@ public class AddController implements Initializable {
     }
 
     @FXML
-    public void handleSave(ActionEvent event) {
+    public void handleSave(ActionEvent event) throws Exception {
 
         if (validateInput()) {
 
@@ -53,16 +54,17 @@ public class AddController implements Initializable {
             );
 
             service.create(category);
-            CATEGORYLIST.clear();
-            CATEGORYLIST.addAll(service.getAll());
 
-            ((Stage) saveButton.getScene().getWindow()).close();
+            // ((Stage) saveButton.getScene().getWindow()).close();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Successful");
             alert.setHeaderText("Category Created!");
             alert.setContentText("Category is created successfully");
             alert.showAndWait();
+
+            WindowChange.Activate(event, "../display/fxml/category/category.fxml", "Category List", "ui/display/resources/images/logo.png", "internal");
+
         }
     }
 

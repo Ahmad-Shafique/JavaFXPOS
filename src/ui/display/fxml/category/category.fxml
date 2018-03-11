@@ -137,24 +137,6 @@
                                 <String fx:value="menu-buttons-selected" />
                             </styleClass>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#supplierAction" prefHeight="40.0" prefWidth="200.0" styleClass="menu-buttons" text="Supplier">
-                            <graphic>
-                                <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../resources/images/supplier.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#purchaseAction" prefHeight="40.0" prefWidth="200.0" styleClass="menu-buttons" text="Purchase">
-                            <graphic>
-                                <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../resources/images/purchase.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
                         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#salesAction" prefHeight="40.0" prefWidth="200.0" styleClass="menu-buttons" text="Sales">
                             <graphic>
                                 <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
@@ -164,16 +146,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#staffAction" prefHeight="40.0" prefWidth="200.0" styleClass="menu-buttons" text="Staff">
-                            <graphic>
-                                <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../resources/images/employee.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#reportAction" prefHeight="40.0" prefWidth="200.0" styleClass="menu-buttons" text="Report">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#posAction" prefHeight="40.0" prefWidth="200.0" styleClass="menu-buttons" text="Staff">
                             <graphic>
                                 <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
