@@ -4,6 +4,7 @@ import core.application.services.Activator;
 import core.domain.model.entities.User;
 import core.domain.services.interfaces.ICRUD;
 import core.domain.services.interfaces.IUserCRUD;
+import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -42,7 +43,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         model = new User();
         enterPressed();
-        service = (IUserCRUD) new Activator().activate("User");
+        service = (IUserCRUD) new Activator().activate("User", NetworkAccessActivator.Activate("User"));
     }
 
     private void enterPressed() {

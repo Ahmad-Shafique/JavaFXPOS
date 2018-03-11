@@ -6,6 +6,7 @@ import core.domain.model.entities.Item;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
 import core.domain.services.interfaces.ICategoryCRUD;
+import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
@@ -62,8 +63,8 @@ public class EditController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        itemService = (ICRUD<Item>) new Activator().activate("Item");
-        categoryService = (ICategoryCRUD) new Activator().activate("Category");
+        itemService = (ICRUD<Item>) new Activator().activate("Item", NetworkAccessActivator.Activate("Item"));
+        categoryService = (ICategoryCRUD) new Activator().activate("Category", NetworkAccessActivator.Activate("Category"));
 //        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryModel.getTypes());
         ObservableList<String> categoryList = FXCollections.observableArrayList(categoryService.getAllCategoryNames());
         categoryBox.setItems(categoryList);

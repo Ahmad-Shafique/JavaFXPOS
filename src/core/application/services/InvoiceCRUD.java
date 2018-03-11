@@ -1,5 +1,7 @@
 package core.application.services;
 
+import core.application.services.data.access.interfaces.base.IBaseDataAccess;
+import core.application.services.data.access.interfaces.extended.IExtendedDataAccess;
 import core.application.services.emulator.DBEmulator;
 import core.domain.model.entities.Category;
 import core.domain.model.entities.Invoice;
@@ -7,6 +9,13 @@ import core.domain.model.entities.Invoice;
 import java.util.List;
 
 public class InvoiceCRUD extends BaseCRUD<Invoice>{
+
+    InvoiceCRUD(){}
+
+    InvoiceCRUD(IBaseDataAccess dataAccess){
+        super(dataAccess);
+    }
+
     @Override
     public boolean create(Invoice entity) {
         return DBEmulator.addInvoice(entity);

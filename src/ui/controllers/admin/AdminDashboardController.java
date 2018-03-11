@@ -5,6 +5,7 @@ import core.domain.model.entities.*;
 import core.domain.model.entities._utilities.DateBreakdown;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
+import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,8 +59,8 @@ public class AdminDashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        itemService = (ICRUD<Item>) new Activator().activate("Item");
-        invoiceService = (ICRUD<Invoice>) new Activator().activate("Invoice");
+        itemService = (ICRUD<Item>) new Activator().activate("Item", NetworkAccessActivator.Activate("Item"));
+        invoiceService = (ICRUD<Invoice>) new Activator().activate("Invoice", NetworkAccessActivator.Activate("Invoice"));
 
         drawerAction();
         loadInvoiceChart();

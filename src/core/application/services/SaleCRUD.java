@@ -1,7 +1,7 @@
 package core.application.services;
 
+import core.application.services.data.access.interfaces.modelwise.sale.ISaleDataAccess;
 import core.application.services.emulator.DBEmulator;
-import core.domain.model.entities.Category;
 import core.domain.model.entities.Sale;
 import core.domain.services.classes.SalesReport;
 import core.domain.services.interfaces.ISaleCRUD;
@@ -11,6 +11,13 @@ import java.util.Date;
 import java.util.List;
 
 class SaleCRUD extends BaseCRUD<Sale> implements ISaleCRUD {
+
+    private ISaleDataAccess dataAccess;
+
+    SaleCRUD(ISaleDataAccess dataAccess){
+        this.dataAccess = dataAccess;
+    }
+
     @Override
     public boolean create(Sale entity) {
         return DBEmulator.addSale(entity);

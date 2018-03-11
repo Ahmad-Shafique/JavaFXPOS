@@ -6,6 +6,7 @@ import core.domain.model.entities.Item;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
 import core.domain.services.interfaces.ICategoryCRUD;
+import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,8 +37,8 @@ public class AddController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        itemService = (ICRUD<Item>) new Activator().activate("Item");
-        categoryService = (ICategoryCRUD) new Activator().activate("Category");
+        itemService = (ICRUD<Item>) new Activator().activate("Item", NetworkAccessActivator.Activate("Item"));
+        categoryService = (ICategoryCRUD) new Activator().activate("Category", NetworkAccessActivator.Activate("Category"));
 //        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryService.getAll());
         ObservableList<String> categoryList = FXCollections.observableArrayList(categoryService.getAllCategoryNames());
         categoryBox.setItems(categoryList);

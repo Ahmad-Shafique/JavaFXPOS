@@ -3,6 +3,7 @@ package ui.controllers.category;
 import core.application.services.Activator;
 import core.domain.model.entities.Category;
 import core.domain.services.interfaces.ICRUD;
+import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,7 +34,7 @@ public class AddController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        service = (ICRUD<Category>) new Activator().activate("Category");
+        service = (ICRUD<Category>) new Activator().activate("Category", NetworkAccessActivator.Activate("Category"));
     }
 
     @FXML

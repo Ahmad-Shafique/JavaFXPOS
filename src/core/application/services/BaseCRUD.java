@@ -1,14 +1,21 @@
 package core.application.services;
 
+import core.application.services.data.access.interfaces.base.IBaseDataAccess;
+import core.application.services.data.access.interfaces.extended.IExtendedDataAccess;
 import core.domain.services.interfaces.ICRUD;
 
 import java.util.List;
 
 class BaseCRUD<Entity> implements ICRUD<Entity>{
 
-    BaseCRUD(){
+    protected IBaseDataAccess dataAccess;
 
+    BaseCRUD(){}
+
+    BaseCRUD(IBaseDataAccess dataAccess){
+        this.dataAccess = dataAccess;
     }
+
 
     @Override
     public boolean create(Entity entity) {

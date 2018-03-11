@@ -6,6 +6,7 @@ import core.domain.model.entities.Sale;
 import core.domain.services.classes.SalesReport;
 import core.domain.services.interfaces.ICRUD;
 import core.domain.services.interfaces.ISaleCRUD;
+import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
@@ -60,7 +61,7 @@ public class SalesController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        service = (ISaleCRUD) new Activator().activate("Sale");
+        service = (ISaleCRUD) new Activator().activate("Sale", NetworkAccessActivator.Activate("Sale"));
 
         drawerAction();
         loadData();

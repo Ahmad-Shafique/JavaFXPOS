@@ -6,6 +6,7 @@ import core.domain.model.entities.Item;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
 import core.domain.services.interfaces.ICategoryCRUD;
+import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -57,7 +58,7 @@ public class CategoryController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        service = (ICategoryCRUD) new Activator().activate("Category");
+        service = (ICategoryCRUD) new Activator().activate("Category", NetworkAccessActivator.Activate("Category"));
 
         drawerAction();
         loadData();

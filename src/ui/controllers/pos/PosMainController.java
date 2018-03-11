@@ -6,6 +6,7 @@ import core.domain.model.entities.SaleItem;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
 import core.domain.services.interfaces.ISaleCRUD;
+import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,7 +63,7 @@ public class PosMainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ITEMLIST = FXCollections.observableArrayList();
-        service = (ICRUD<Item>) new Activator().activate("Item");
+        service = (ICRUD<Item>) new Activator().activate("Item", NetworkAccessActivator.Activate("Item"));
 
         loadData();
 

@@ -1,13 +1,19 @@
 package core.application.services;
 
+import core.application.services.data.access.interfaces.modelwise.user.IUserDataAccess;
 import core.application.services.emulator.DBEmulator;
-import core.domain.model.entities.Sale;
 import core.domain.model.entities.User;
 import core.domain.services.interfaces.IUserCRUD;
 
 import java.util.List;
 
 class UserCRUD extends BaseCRUD<User> implements IUserCRUD {
+
+    private IUserDataAccess dataAccess;
+
+    UserCRUD(IUserDataAccess dataAccess){
+        this.dataAccess = dataAccess;
+    }
 
     @Override
     public boolean create(User entity) {
