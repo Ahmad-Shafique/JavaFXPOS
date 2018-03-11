@@ -132,59 +132,30 @@ public class SalesController implements Initializable{
 
     @FXML
     public void adminAction(ActionEvent event) throws Exception {
-        windows("/fxml/Admin.fxml", "Admin", event);
+        WindowChange.Activate(event, "../display/fxml/admin/dashboard.fxml", "Admin");
+
     }
 
     @FXML
     public void productAction(ActionEvent event) throws Exception {
 
-        windows("/fxml/Product.fxml", "Product", event);
+        WindowChange.Activate(event, "../display/fxml/product/product.fxml", "Product");
     }
 
     @FXML
     public void categoryAction(ActionEvent event) throws Exception {
 
-        windows("/fxml/Category.fxml", "Category", event);
+        WindowChange.Activate(event, "../display/fxml/category/category.fxml", "Category");
     }
 
     @FXML
-    public void purchaseAction(ActionEvent event) throws Exception {
-
-        windows("/fxml/Purchase.fxml", "Purchase", event);
-    }
-
-    @FXML
-    public void reportAction(ActionEvent event) throws Exception {
-        windows("/fxml/Report.fxml", "Report", event);
-    }
-
-    @FXML
-    public void supplierAction(ActionEvent event) throws Exception {
-        windows("/fxml/Supplier.fxml", "Supplier", event);
-    }
-
-    @FXML
-    public void staffAction(ActionEvent event) throws Exception {
-        windows("/fxml/Employee.fxml", "Employee", event);
+    public void posAction(ActionEvent event) throws Exception {
+        WindowChange.Activate(event, "../display/fxml/pos/main.fxml", "POS Window");
     }
 
     @FXML
     public void logoutAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "/fxml/Login.fxml", "Inventory:: Version 1.0", "/images/logo.png", "logout");
-    }
-
-    private void windows(String path, String title, ActionEvent event) throws Exception {
-
-        double width = ((Node) event.getSource()).getScene().getWidth();
-        double height = ((Node) event.getSource()).getScene().getHeight();
-
-        Parent root = FXMLLoader.load(getClass().getResource(path));
-        Scene scene = new Scene(root, width, height);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle(title);
-        stage.getIcons().add(new Image("/images/logo.png"));
-        stage.setScene(scene);
-        stage.show();
+        WindowChange.Activate(event, "../display/fxml/login/login.fxml", "JFXPOS :: Version 1.0", "ui/display/images/logo.png", "logout");
     }
 
     @FXML
