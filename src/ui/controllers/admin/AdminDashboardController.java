@@ -180,44 +180,26 @@ public class AdminDashboardController implements Initializable {
     public void categoryAction(ActionEvent event) throws Exception {
 
 //        windows("/fxml/Category.fxml", "Category", event);
-        WindowChange.Activate(event, "/fxml/Category.fxml", "Category", "/images/logo.png", "internal");
+        WindowChange.Activate(event, "../display/fxml/category/category.fxml", "Category", "ui/display/resources/images/logo.png", "internal");
     }
 
-    @FXML
-    public void purchaseAction(ActionEvent event) throws Exception {
-
-//        windows("/fxml/Purchase.fxml", "Purchase", event);
-        WindowChange.Activate(event, "/fxml/Purchase.fxml", "Purchase", "/images/logo.png", "internal");
-    }
 
     @FXML
     public void salesAction(ActionEvent event) throws Exception {
 
 //        windows("/fxml/Sales.fxml", "Sales", event);
-        WindowChange.Activate(event, "/fxml/Sales.fxml", "Sales", "/images/logo.png", "internal");
+        WindowChange.Activate(event, "../display/fxml/salesreport/sales.fxml", "Sales", "ui/display/resources/images/logo.png", "internal");
     }
 
     @FXML
-    public void supplierAction(ActionEvent event) throws Exception {
-//        windows("/fxml/Supplier.fxml", "Supplier", event);
-        WindowChange.Activate(event, "/fxml/Supplier.fxml", "Supplier", "/images/logo.png", "internal");
-    }
-
-    @FXML
-    public void reportAction(ActionEvent event) throws Exception {
-//        windows("/fxml/Report.fxml", "Report", event);
-        WindowChange.Activate(event, "/fxml/Report.fxml", "Report", "/images/logo.png", "internal");
-    }
-
-    @FXML
-    public void staffAction(ActionEvent event) throws Exception {
+    public void posAction(ActionEvent event) throws Exception {
 //        windows("/fxml/Employee.fxml", "Employee", event);
-        WindowChange.Activate(event, "/fxml/Employee.fxml", "Employee", "/images/logo.png", "internal");
+        WindowChange.Activate(event, "../display/fxml/pos/main.fxml", "POS Window", "ui/display/resources/images/logo.png", "internal");
     }
 
     @FXML
     public void logoutAction(ActionEvent event) throws Exception {
-        WindowChange.Activate(event, "/fxml/Login.fxml", "Inventory:: Version 1.0", "/images/logo.png", "logout");
+        WindowChange.Activate(event, "../display/fxml/login/login.fxml", "JFXPOS:: Version 1.0", "ui/display/resources/images/logo.png", "logout");
         /*((Node) (event.getSource())).getScene().getWindow().hide();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
         Stage stage = new Stage();
