@@ -7,6 +7,7 @@ import core.domain.model.entities._utilities.DateBreakdown;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
 import core.domain.services.interfaces.ISaleCRUD;
+import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
@@ -74,8 +75,8 @@ public class ProductController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        itemService = (ICRUD<Item>) new Activator().activate("Item");
-        saleService = (ISaleCRUD) new Activator().activate("Sale");
+        itemService = (ICRUD<Item>) new Activator().activate("Item", NetworkAccessActivator.Activate("Item"));
+        saleService = (ISaleCRUD) new Activator().activate("Sale",NetworkAccessActivator.Activate("Sale"));
         drawerAction();
         loadData();
 
