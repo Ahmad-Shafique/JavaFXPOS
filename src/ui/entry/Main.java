@@ -1,10 +1,13 @@
 package ui.entry;
 
+import core.domain.model.entities._utilities.console;
+import infrastructure.sample.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import okhttp3.OkHttpClient;
 
 
 import javax.naming.Context;
@@ -25,8 +28,8 @@ public class Main extends Application {
     }
 
 
-    public static void main(String[] args) {
-        // OkHttpClient
+    public static void main(String[] args) throws Exception {
+        // console.log(new User().run("https://jsonplaceholder.typicode.com/posts/1"));
         launch(args);
     }
 }
