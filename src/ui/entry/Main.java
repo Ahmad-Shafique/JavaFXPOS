@@ -22,7 +22,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../display/fxml/login/login.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Foldie");
         primaryStage.setScene(new Scene(root, 1024, 640));
         primaryStage.show();
     }
@@ -30,6 +30,7 @@ public class Main extends Application {
 
     public static void main(String[] args) throws Exception {
         // console.log(new User().run("https://jsonplaceholder.typicode.com/posts/1"));
+        console.log(new User().run("http://localhost:3000/Category/1"));
         launch(args);
     }
 }
