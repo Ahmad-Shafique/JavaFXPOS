@@ -30,7 +30,7 @@ public class Main extends Application {
 
     public static void main(String[] args) throws Exception {
         // console.log(new User().run("https://jsonplaceholder.typicode.com/posts/1"));
-        console.log(new User().run("http://localhost:3000/Category/1"));
+        // console.log(new User().run("http://localhost:3000/Category/1"));
         launch(args);
     }
 }
