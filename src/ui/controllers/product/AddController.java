@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import ui._utilities.AlertDisplay;
 import ui._utilities.WindowChange;
 
 import java.net.URL;
@@ -26,6 +27,8 @@ public class AddController implements Initializable, IDataLoad {
     private ICRUD<Item> itemService;
     private ICategoryCRUD categoryService;
     private ObservableList<Item> PRODUCTLIST = FXCollections.observableArrayList();
+    ObservableList<String> categoryList = FXCollections.observableArrayList();
+    private AlertDisplay alert;
 
     @FXML
     private TextField nameField, priceField, quantityField;
@@ -40,14 +43,16 @@ public class AddController implements Initializable, IDataLoad {
     public void initialize(URL location, ResourceBundle resources) {
         itemService = (ICRUD<Item>) new Activator().activate("Item", this, NetworkAccessActivator.Activate("Item"));
         categoryService = (ICategoryCRUD) new Activator().activate("Category", this, NetworkAccessActivator.Activate("Category"));
-//        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryService.getAll());
-        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryService.getAllCategoryNames());
+        alert = new AlertDisplay();
+        //      ObservableList<String> categoryList = FXCollections.observableArrayList(categoryService.getAll());
+//        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryService.getAllCategoryNames());
         categoryBox.setItems(categoryList);
     }
 
     @Override
     public void pushData(Object obj) {
-
+        List<String> itemList = (List<String>) obj;
+        categoryList.addAll(itemList);
     }
 
     @FXML
@@ -76,16 +81,11 @@ public class AddController implements Initializable, IDataLoad {
 
             console.log("Product saved !!!");
 
-            PRODUCTLIST.clear();
-            PRODUCTLIST.addAll(itemService.getAll());
+            // itemService.getAll();
 
 //            ((Stage) saveButton.getScene().getWindow()).close();
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Successful");
-            alert.setHeaderText("Product is added");
-            alert.setContentText("Product is added successfully");
-            alert.showAndWait();
+            alert.informationDisplay("Successful", "Product is added", "Product is added successfully");
 
             WindowChange.Activate(event,"../display/fxml/product/product.fxml","Product list", "ui/display/resources/images/product.png","internal");
         }
@@ -129,11 +129,7 @@ public class AddController implements Initializable, IDataLoad {
 
             return true;
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-            alert.showAndWait();
+            alert.errorDisplay("Invalid Fields", "Please correct invalid fields", errorMessage);
 
             return false;
         }

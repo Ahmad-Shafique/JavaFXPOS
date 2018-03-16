@@ -94,7 +94,10 @@ public class ProductController implements Initializable,IDataLoad{
 
     @Override
     public void pushData(Object obj) {
-
+        if (!PRODUCTLIST.isEmpty()) {
+            PRODUCTLIST.clear();
+        }
+        PRODUCTLIST.addAll((List<Item>) obj);
     }
 
     private void filterData() {
@@ -142,10 +145,7 @@ public class ProductController implements Initializable,IDataLoad{
 
     private void loadData() {
 
-        if (!PRODUCTLIST.isEmpty()) {
-            PRODUCTLIST.clear();
-        }
-        PRODUCTLIST.addAll(itemService.getAll());
+        itemService.getAll();
     }
 
     private void loadProductSalesChart(Item p) {

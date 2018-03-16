@@ -71,7 +71,7 @@ public class EditController implements Initializable, IDataLoad{
 
             // ((Stage) saveButton.getScene().getWindow()).close();
 
-            alert.display("Successful", "Category Updated!", "Category is updated successfully");
+            alert.informationDisplay("Successful", "Category Updated!", "Category is updated successfully");
 
             WindowChange.Activate(event,"../display/fxml/category/category.fxml","Category list", "ui/display/resources/images/category.png","internal");
 
@@ -108,7 +108,7 @@ public class EditController implements Initializable, IDataLoad{
         if (errorMessage.length() == 0) {
             return true;
         } else {
-            alert.display("Invalid Fields", "Please correct invalid fields", errorMessage);
+            alert.errorDisplay("Invalid Fields", "Please correct invalid fields", errorMessage);
             return false;
         }
     }

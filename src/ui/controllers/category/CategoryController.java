@@ -4,7 +4,6 @@ import core.application.services.Activator;
 import core.domain.model.entities.Category;
 import core.domain.services.interfaces.ICategoryCRUD;
 import core.domain.services.interfaces.dataload.IDataLoad;
-import core.domain.services.interfaces.dataload.category.ICategoryListLoad;
 import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
@@ -19,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import ui._utilities.AlertDisplay;
 import ui._utilities.TransferService;
 import ui._utilities.WindowChange;
 
@@ -31,6 +31,7 @@ public class CategoryController implements Initializable,IDataLoad {
 
     private ICategoryCRUD service;
     private ObservableList<Category> CATEGORYLIST = FXCollections.observableArrayList();
+    private AlertDisplay alert;
 
     @FXML
     private TableView<Category> categoryTable;
@@ -50,6 +51,7 @@ public class CategoryController implements Initializable,IDataLoad {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         service = (ICategoryCRUD) new Activator().activate("Category", this, NetworkAccessActivator.Activate("Category"));
+        alert = new AlertDisplay();
 
         drawerAction();
         loadData();

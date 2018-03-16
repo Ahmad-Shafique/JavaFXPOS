@@ -4,7 +4,6 @@ import core.application.services.data.access.interfaces.modelwise.category.ICate
 import core.domain.model.entities.*;
 import core.domain.services.interfaces.ICategoryCRUD;
 import core.domain.services.interfaces.dataload.IDataLoad;
-import core.domain.services.interfaces.dataload.category.ISingleCategoryLoad;
 
 import java.util.Arrays;
 import java.util.List;

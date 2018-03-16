@@ -12,7 +12,7 @@ public class Activator {
 
     public Object activate(String repositoryName, IDataLoad dataLoader, IBaseDataAccess dataAccess){
         if (repositoryName == "Category") return new CategoryCRUD( (ICategoryDataAccess) dataAccess, dataLoader);
-        else if(repositoryName == "Item") return new ItemCRUD((IItemDataAccess) dataAccess);
+        else if(repositoryName == "Item") return new ItemCRUD((IItemDataAccess) dataAccess, dataLoader);
         else if(repositoryName == "Sale") return new SaleCRUD((ISaleDataAccess) dataAccess);
         else if(repositoryName == "User") return new UserCRUD((IUserDataAccess) dataAccess);
         else if(repositoryName == "Invoice") return new InvoiceCRUD(dataAccess);

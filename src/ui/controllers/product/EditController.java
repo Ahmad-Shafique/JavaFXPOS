@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import ui._utilities.AlertDisplay;
 import ui._utilities.TransferService;
 import ui._utilities.WindowChange;
 
@@ -29,6 +30,8 @@ public class EditController implements Initializable, IDataLoad{
     private ObservableList<Item> PRODUCTLIST = FXCollections.observableArrayList();
     private Item product;
     private int selectedProductId;
+    AlertDisplay alert;
+    ObservableList<String> categoryList ;
 
     @FXML
     private TextField nameField, priceField, quantityField;
@@ -44,8 +47,10 @@ public class EditController implements Initializable, IDataLoad{
     public void initialize(URL location, ResourceBundle resources) {
         itemService = (ICRUD<Item>) new Activator().activate("Item", this, NetworkAccessActivator.Activate("Item"));
         categoryService = (ICategoryCRUD) new Activator().activate("Category", this, NetworkAccessActivator.Activate("Category"));
-//        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryModel.getTypes());
-        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryService.getAllCategoryNames());
+        alert = new AlertDisplay();
+        //        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryModel.getTypes());
+        categoryList = FXCollections.observableArrayList();
+        categoryService.getAllCategoryNames();
         categoryBox.setItems(categoryList);
         resetValues();
         setProduct();
@@ -53,7 +58,8 @@ public class EditController implements Initializable, IDataLoad{
 
     @Override
     public void pushData(Object obj) {
-
+        List<String> categoryNameList = (List<String>) obj;
+        categoryList.addAll(categoryNameList);
     }
 
     public void setProduct() {
@@ -75,10 +81,11 @@ public class EditController implements Initializable, IDataLoad{
     public void handleSave(ActionEvent event) throws Exception {
 
         if (validateInput()) {
-            Category category = categoryService.read(categoryBox.getSelectionModel().getSelectedIndex() + 1);
+            int categoryId = categoryBox.getSelectionModel().getSelectedIndex() + 1;
+            // Category category = categoryService.read(categoryBox.getSelectionModel().getSelectedIndex() + 1);
             Item editedProduct = new Item(
                     product.getId(),
-                    category.getId(),
+                    categoryId,
                     nameField.getText(),
                     Double.parseDouble(priceField.getText()),
                     Integer.parseInt(quantityField.getText()),
@@ -86,16 +93,12 @@ public class EditController implements Initializable, IDataLoad{
             );
 
             itemService.update(editedProduct.getId(),editedProduct);
-            console.log("returned form emulator");
+            // console.log("returned form emulator");
             // PRODUCTLIST.set((int) selectedProductId, editedProduct);
 
             // ((Stage) saveButton.getScene().getWindow()).close();
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Successful");
-            alert.setHeaderText("Product Updated!");
-            alert.setContentText("Product is updated successfully");
-            alert.showAndWait();
+            alert.informationDisplay("Successful", "Product Updated!", "Product is updated successfully");
 
             WindowChange.Activate(event,"../display/fxml/product/product.fxml","Product list", "ui/display/resources/images/product.png","internal");
 
@@ -143,11 +146,7 @@ public class EditController implements Initializable, IDataLoad{
         if (errorMessage.length() == 0) {
             return true;
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-            alert.showAndWait();
+            alert.errorDisplay("Invalid Fields", "Please correct invalid fields", errorMessage);
 
             return false;
         }

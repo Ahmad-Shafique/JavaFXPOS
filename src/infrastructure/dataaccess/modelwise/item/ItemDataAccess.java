@@ -30,9 +30,11 @@ public class ItemDataAccess extends NetworkBase implements IItemDataAccess{
             Item item = (Item) obj;
             String json = gson.toJson(item);
             String url = server + itemApi + "/" + item.getId();
-            console.log("item is: " + json);
+//            console.log("item is: " + json);
 
             Response response = client.newCall(putRequestBuilder(url,json)).execute();
+
+//            console.log("Put request called;");
             return true;
         }catch (Exception e){
             console.log("Error in put request");
@@ -60,7 +62,7 @@ public class ItemDataAccess extends NetworkBase implements IItemDataAccess{
             NewItem item = new NewItem(rcv.getCategoryId(),rcv.getName(),rcv.getPrice(),rcv.getQuantityAvailable(),rcv.getDescription());
             String json = gson.toJson(item);
             String url = server + itemApi;
-            console.log("item is: " + json);
+//            console.log("item is: " + json);
 
             Response response = client.newCall(postRequestBuilder(url,json)).execute();
             return true;
@@ -78,7 +80,7 @@ public class ItemDataAccess extends NetworkBase implements IItemDataAccess{
             if(response.isSuccessful() && response.code() == 200 ){
                 String received = response.body().string();
                 Item[] result = gson.fromJson(received, Item[].class);
-                console.log("Items fetched from server");
+//                console.log("Items fetched from server");
                 return result;
             }
         }catch (Exception e){

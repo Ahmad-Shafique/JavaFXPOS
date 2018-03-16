@@ -13,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import ui._utilities.AlertDisplay;
 import ui._utilities.WindowChange;
 
 import java.net.URL;
@@ -30,10 +31,12 @@ public class AddController implements Initializable, IDataLoad{
     @FXML
     private Button saveButton;
     private ICRUD<Category> service;
+    private AlertDisplay alert;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         service = (ICRUD<Category>) new Activator().activate("Category", this, NetworkAccessActivator.Activate("Category"));
+        alert = new AlertDisplay();
     }
 
     @Override
@@ -62,11 +65,7 @@ public class AddController implements Initializable, IDataLoad{
 
             // ((Stage) saveButton.getScene().getWindow()).close();
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Successful");
-            alert.setHeaderText("Category Created!");
-            alert.setContentText("Category is created successfully");
-            alert.showAndWait();
+            alert.informationDisplay("Successful", "Category Created!", "Category is created successfully");
 
             WindowChange.Activate(event, "../display/fxml/category/category.fxml", "Category List", "ui/display/resources/images/logo.png", "internal");
 
@@ -88,11 +87,7 @@ public class AddController implements Initializable, IDataLoad{
         if (errorMessage.length() == 0) {
             return true;
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-            alert.showAndWait();
+            alert.errorDisplay("Invalid Fields", "Please correct invalid fields", errorMessage);
 
             return false;
         }
