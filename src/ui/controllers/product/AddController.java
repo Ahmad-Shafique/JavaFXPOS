@@ -6,6 +6,7 @@ import core.domain.model.entities.Item;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
 import core.domain.services.interfaces.ICategoryCRUD;
+import core.domain.services.interfaces.dataload.IDataLoad;
 import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,13 +15,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import ui._utilities.WindowChange;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class AddController implements Initializable {
+public class AddController implements Initializable, IDataLoad {
 
     private ICRUD<Item> itemService;
     private ICategoryCRUD categoryService;
@@ -37,11 +38,16 @@ public class AddController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        itemService = (ICRUD<Item>) new Activator().activate("Item", NetworkAccessActivator.Activate("Item"));
-        categoryService = (ICategoryCRUD) new Activator().activate("Category", NetworkAccessActivator.Activate("Category"));
+        itemService = (ICRUD<Item>) new Activator().activate("Item", this, NetworkAccessActivator.Activate("Item"));
+        categoryService = (ICategoryCRUD) new Activator().activate("Category", this, NetworkAccessActivator.Activate("Category"));
 //        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryService.getAll());
         ObservableList<String> categoryList = FXCollections.observableArrayList(categoryService.getAllCategoryNames());
         categoryBox.setItems(categoryList);
+    }
+
+    @Override
+    public void pushData(Object obj) {
+
     }
 
     @FXML
@@ -139,4 +145,6 @@ public class AddController implements Initializable {
     public void closeAction(ActionEvent event) {
         ((Node) (event.getSource())).getScene().getWindow().hide();
     }
+
+
 }

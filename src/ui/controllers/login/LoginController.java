@@ -2,32 +2,27 @@ package ui.controllers.login;
 
 import core.application.services.Activator;
 import core.domain.model.entities.User;
-import core.domain.services.interfaces.ICRUD;
+import core.domain.services.interfaces.dataload.IDataLoad;
 import core.domain.services.interfaces.IUserCRUD;
 import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import ui._utilities.WindowChange;
 
-import java.io.Console;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class LoginController implements Initializable, IDataLoad{
 
     IUserCRUD service ;
 
@@ -43,7 +38,12 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         model = new User();
         enterPressed();
-        service = (IUserCRUD) new Activator().activate("User", NetworkAccessActivator.Activate("User"));
+        service = (IUserCRUD) new Activator().activate("User", this, NetworkAccessActivator.Activate("User"));
+    }
+
+    @Override
+    public void pushData(Object obj) {
+
     }
 
     private void enterPressed() {
@@ -124,6 +124,5 @@ public class LoginController implements Initializable {
             return false;
         }
     }
-
 
 }

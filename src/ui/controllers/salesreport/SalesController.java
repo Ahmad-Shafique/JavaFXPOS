@@ -1,43 +1,33 @@
 package ui.controllers.salesreport;
 
 import core.application.services.Activator;
-import core.domain.model.entities.Item;
-import core.domain.model.entities.Sale;
 import core.domain.services.classes.SalesReport;
-import core.domain.services.interfaces.ICRUD;
+import core.domain.services.interfaces.dataload.IDataLoad;
 import core.domain.services.interfaces.ISaleCRUD;
 import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import ui._utilities.WindowChange;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class SalesController implements Initializable{
+public class SalesController implements Initializable, IDataLoad{
 
     private ISaleCRUD service;
     private ObservableList<SalesReport> SALELIST = FXCollections.observableArrayList();
@@ -61,7 +51,7 @@ public class SalesController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        service = (ISaleCRUD) new Activator().activate("Sale", NetworkAccessActivator.Activate("Sale"));
+        service = (ISaleCRUD) new Activator().activate("Sale", this, NetworkAccessActivator.Activate("Sale"));
 
         drawerAction();
         loadData();
@@ -78,6 +68,10 @@ public class SalesController implements Initializable{
         deleteButton
                 .disableProperty()
                 .bind(Bindings.isEmpty(salesTable.getSelectionModel().getSelectedItems()));
+    }
+
+    @Override
+    public void pushData(Object obj) {
     }
 
     private void filterData() {
@@ -162,4 +156,6 @@ public class SalesController implements Initializable{
     @FXML
     public void deleteAction(ActionEvent event) throws Exception {
     }
+
+
 }

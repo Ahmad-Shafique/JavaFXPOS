@@ -78,6 +78,7 @@ public class ItemDataAccess extends NetworkBase implements IItemDataAccess{
             if(response.isSuccessful() && response.code() == 200 ){
                 String received = response.body().string();
                 Item[] result = gson.fromJson(received, Item[].class);
+                console.log("Items fetched from server");
                 return result;
             }
         }catch (Exception e){

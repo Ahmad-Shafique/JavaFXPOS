@@ -2,6 +2,7 @@ package core.application.services;
 
 import core.application.services.data.access.interfaces.modelwise.item.IItemDataAccess;
 import core.domain.model.entities.Item;
+import core.domain.model.entities._utilities.console;
 
 import java.util.Arrays;
 import java.util.List;
@@ -46,6 +47,7 @@ class ItemCRUD extends BaseCRUD<Item> {
 
         // return DBEmulator.getAllItems();
         Item[] result = (Item[]) dataAccess.getAll();
+        console.log("results received from data access");
         return Arrays.asList(result);
     }
 }

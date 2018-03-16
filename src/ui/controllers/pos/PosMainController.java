@@ -5,7 +5,7 @@ import core.domain.model.entities.Item;
 import core.domain.model.entities.SaleItem;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
-import core.domain.services.interfaces.ISaleCRUD;
+import core.domain.services.interfaces.dataload.IDataLoad;
 import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -14,24 +14,16 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import ui._utilities.WindowChange;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class PosMainController implements Initializable {
+public class PosMainController implements Initializable, IDataLoad {
 
     private ICRUD<Item> service;
     private ObservableList<Item> PRODUCTLIST = FXCollections.observableArrayList();
@@ -63,7 +55,7 @@ public class PosMainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ITEMLIST = FXCollections.observableArrayList();
-        service = (ICRUD<Item>) new Activator().activate("Item", NetworkAccessActivator.Activate("Item"));
+        service = (ICRUD<Item>) new Activator().activate("Item", this, NetworkAccessActivator.Activate("Item"));
 
         loadData();
 
@@ -86,6 +78,12 @@ public class PosMainController implements Initializable {
         removeButton
                 .disableProperty()
                 .bind(Bindings.isEmpty(listTableView.getSelectionModel().getSelectedItems()));
+    }
+
+
+    @Override
+    public void pushData(Object obj) {
+
     }
 
     private void filterData() {
@@ -310,4 +308,5 @@ public class PosMainController implements Initializable {
     public void logoutAction(ActionEvent event) throws Exception {
         WindowChange.Activate(event, "/fxml/Login.fxml", "Inventory:: Version 1.0", "/images/logo.png", "logout");
     }
+
 }

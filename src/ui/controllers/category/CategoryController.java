@@ -2,10 +2,9 @@ package ui.controllers.category;
 
 import core.application.services.Activator;
 import core.domain.model.entities.Category;
-import core.domain.model.entities.Item;
-import core.domain.model.entities._utilities.console;
-import core.domain.services.interfaces.ICRUD;
 import core.domain.services.interfaces.ICategoryCRUD;
+import core.domain.services.interfaces.dataload.IDataLoad;
+import core.domain.services.interfaces.dataload.category.ICategoryListLoad;
 import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
@@ -15,28 +14,20 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import ui._utilities.TransferService;
 import ui._utilities.WindowChange;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class CategoryController implements Initializable {
+public class CategoryController implements Initializable,IDataLoad {
 
     private ICategoryCRUD service;
     private ObservableList<Category> CATEGORYLIST = FXCollections.observableArrayList();
@@ -58,7 +49,7 @@ public class CategoryController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        service = (ICategoryCRUD) new Activator().activate("Category", NetworkAccessActivator.Activate("Category"));
+        service = (ICategoryCRUD) new Activator().activate("Category", this, NetworkAccessActivator.Activate("Category"));
 
         drawerAction();
         loadData();
@@ -78,6 +69,17 @@ public class CategoryController implements Initializable {
                 .disableProperty()
                 .bind(Bindings.isEmpty(categoryTable.getSelectionModel().getSelectedItems()));
     }
+
+    @Override
+    public void pushData(Object catList) {
+        if (!CATEGORYLIST.isEmpty()) {
+            CATEGORYLIST.clear();
+        }
+        CATEGORYLIST.addAll( (List<Category>) catList );
+    }
+
+
+
 
     private void filterData() {
         FilteredList<Category> searchedData = new FilteredList<>(CATEGORYLIST, e -> true);
@@ -104,11 +106,7 @@ public class CategoryController implements Initializable {
     }
 
     private void loadData() {
-
-        if (!CATEGORYLIST.isEmpty()) {
-            CATEGORYLIST.clear();
-        }
-        CATEGORYLIST.addAll(service.getAll());
+        service.getAll();
     }
 
     private void drawerAction() {
@@ -232,4 +230,7 @@ public class CategoryController implements Initializable {
 
         categoryTable.getSelectionModel().clearSelection();*/
     }
+
+
+
 }

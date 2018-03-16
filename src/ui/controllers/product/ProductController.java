@@ -6,33 +6,24 @@ import core.domain.model.entities.Sale;
 import core.domain.model.entities._utilities.DateBreakdown;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
+import core.domain.services.interfaces.dataload.IDataLoad;
 import core.domain.services.interfaces.ISaleCRUD;
 import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import ui._utilities.TransferService;
 import ui._utilities.WindowChange;
@@ -44,7 +35,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class ProductController implements Initializable{
+public class ProductController implements Initializable,IDataLoad{
     private ICRUD<Item> itemService;
     private ISaleCRUD saleService;
 
@@ -75,8 +66,8 @@ public class ProductController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        itemService = (ICRUD<Item>) new Activator().activate("Item", NetworkAccessActivator.Activate("Item"));
-        saleService = (ISaleCRUD) new Activator().activate("Sale",NetworkAccessActivator.Activate("Sale"));
+        itemService = (ICRUD<Item>) new Activator().activate("Item", this, NetworkAccessActivator.Activate("Item"));
+        saleService = (ISaleCRUD) new Activator().activate("Sale", this, NetworkAccessActivator.Activate("Sale"));
         drawerAction();
         loadData();
 
@@ -101,8 +92,12 @@ public class ProductController implements Initializable{
                 .bind(Bindings.isEmpty(productTable.getSelectionModel().getSelectedItems()));
     }
 
-    private void filterData() {
+    @Override
+    public void pushData(Object obj) {
 
+    }
+
+    private void filterData() {
         FilteredList<Item> searchedData = new FilteredList<>(PRODUCTLIST, e -> true);
         searchField.setOnKeyReleased(e -> {
             searchField.textProperty().addListener((observable, oldValue, newValue) -> {

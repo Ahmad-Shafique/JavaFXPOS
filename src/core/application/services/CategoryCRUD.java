@@ -1,19 +1,24 @@
 package core.application.services;
 
 import core.application.services.data.access.interfaces.modelwise.category.ICategoryDataAccess;
-import core.application.services.emulator.DBEmulator;
 import core.domain.model.entities.*;
 import core.domain.services.interfaces.ICategoryCRUD;
+import core.domain.services.interfaces.dataload.IDataLoad;
+import core.domain.services.interfaces.dataload.category.ISingleCategoryLoad;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 class CategoryCRUD extends BaseCRUD<Category> implements ICategoryCRUD {
 
     private ICategoryDataAccess dataAccess;
+    private IDataLoad dataLoader;
 
-    CategoryCRUD(ICategoryDataAccess dataAccess){
+    CategoryCRUD(ICategoryDataAccess dataAccess, IDataLoad dataLoader){
+
         this.dataAccess = dataAccess;
+        this.dataLoader = dataLoader;
     }
 
     @Override
@@ -23,7 +28,9 @@ class CategoryCRUD extends BaseCRUD<Category> implements ICategoryCRUD {
 
     @Override
     public Category read(int id) {
-        return (Category) dataAccess.getById(id);
+
+        dataLoader.pushData( dataAccess.getById(id));
+        return null;
     }
 
     @Override
@@ -38,11 +45,18 @@ class CategoryCRUD extends BaseCRUD<Category> implements ICategoryCRUD {
 
     @Override
     public List<Category> getAll(){
-        return Arrays.asList((Category[]) dataAccess.getAll());
+        try{
+            TimeUnit.SECONDS.sleep(10);
+        }catch (Exception e){
+
+        }
+        dataLoader.pushData(Arrays.asList((Category[]) dataAccess.getAll()));
+        return null;
     }
 
     @Override
     public List<String> getAllCategoryNames() {
-        return Arrays.asList(dataAccess.getAllCategoryNames());
+        dataLoader.pushData( Arrays.asList(dataAccess.getAllCategoryNames()));
+        return null;
     }
 }

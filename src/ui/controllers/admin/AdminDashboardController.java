@@ -5,24 +5,17 @@ import core.domain.model.entities.*;
 import core.domain.model.entities._utilities.DateBreakdown;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
+import core.domain.services.interfaces.dataload.IDataLoad;
 import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import ui._utilities.WindowChange;
 
@@ -32,7 +25,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class AdminDashboardController implements Initializable {
+public class AdminDashboardController implements Initializable, IDataLoad {
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -59,13 +52,31 @@ public class AdminDashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        itemService = (ICRUD<Item>) new Activator().activate("Item", NetworkAccessActivator.Activate("Item"));
-        invoiceService = (ICRUD<Invoice>) new Activator().activate("Invoice", NetworkAccessActivator.Activate("Invoice"));
+        itemService = (ICRUD<Item>) new Activator().activate("Item", this, NetworkAccessActivator.Activate("Item"));
+        invoiceService = (ICRUD<Invoice>) new Activator().activate("Invoice", this, NetworkAccessActivator.Activate("Invoice"));
+
+        console.log("Item and invoice fetched");
 
         drawerAction();
+
+        console.log("drawer action complete");
+
         loadInvoiceChart();
+
+        console.log("Invoice loaded");
+
         loadProductsChart();
+
+        console.log("products loaded");
+
         loadStockChart();
+
+        console.log("products stock loaded");
+    }
+
+    @Override
+    public void pushData(Object obj) {
+
     }
 
     private void drawerAction() {
@@ -127,11 +138,15 @@ public class AdminDashboardController implements Initializable {
 //        console.log("Entered method");
 
         ObservableList lists = FXCollections.observableArrayList();
+
         XYChart.Series<String, Double> series = new XYChart.Series<>();
 
 //        console.log("Initiated objects");
 
         List<Item> itemList = itemService.getAll();
+
+
+//        console.log("list received in controller");
 
         for (Item p : itemList) {
             series.getData().add(new XYChart.Data(p.getName(), p.getQuantityAvailable()));
@@ -144,10 +159,16 @@ public class AdminDashboardController implements Initializable {
         }
 
         series.setName("Products");
+
+        console.log("name set");
+
         pxAxis.setCategories(lists);
+
+        console.log("categories set");
+
         productsChart.getData().add(series);
 
-//        console.log("completed loadProductsChart method");
+        console.log("completed loadProductsChart method");
     }
 
     private String convertDate(String date) {
@@ -219,6 +240,8 @@ public class AdminDashboardController implements Initializable {
         stage.setScene(scene);
         stage.show();*/
     }
+
+
 
   /*  private void windows(String path, String title, ActionEvent event) throws Exception {
 

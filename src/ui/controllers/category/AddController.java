@@ -3,9 +3,8 @@ package ui.controllers.category;
 import core.application.services.Activator;
 import core.domain.model.entities.Category;
 import core.domain.services.interfaces.ICRUD;
+import core.domain.services.interfaces.dataload.IDataLoad;
 import infrastructure.dataaccess.NetworkAccessActivator;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,13 +13,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import ui._utilities.WindowChange;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class AddController implements Initializable {
+public class AddController implements Initializable, IDataLoad{
 
     // private ObservableList<Category> CATEGORYLIST = FXCollections.observableArrayList();
 
@@ -34,7 +33,12 @@ public class AddController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        service = (ICRUD<Category>) new Activator().activate("Category", NetworkAccessActivator.Activate("Category"));
+        service = (ICRUD<Category>) new Activator().activate("Category", this, NetworkAccessActivator.Activate("Category"));
+    }
+
+    @Override
+    public void pushData(Object obj) {
+
     }
 
     @FXML
@@ -98,4 +102,5 @@ public class AddController implements Initializable {
     public void closeAction(ActionEvent event) {
         ((Node) (event.getSource())).getScene().getWindow().hide();
     }
+
 }

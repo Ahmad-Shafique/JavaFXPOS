@@ -6,44 +6,23 @@ import core.domain.model.entities.Item;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
 import core.domain.services.interfaces.ICategoryCRUD;
+import core.domain.services.interfaces.dataload.IDataLoad;
 import infrastructure.dataaccess.NetworkAccessActivator;
-import javafx.animation.TranslateTransition;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
 import ui._utilities.TransferService;
 import ui._utilities.WindowChange;
 
 import java.net.URL;
-import java.text.DateFormatSymbols;
 import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class EditController implements Initializable {
+public class EditController implements Initializable, IDataLoad{
 
     private ICRUD<Item> itemService;
     private ICategoryCRUD categoryService;
@@ -63,13 +42,18 @@ public class EditController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        itemService = (ICRUD<Item>) new Activator().activate("Item", NetworkAccessActivator.Activate("Item"));
-        categoryService = (ICategoryCRUD) new Activator().activate("Category", NetworkAccessActivator.Activate("Category"));
+        itemService = (ICRUD<Item>) new Activator().activate("Item", this, NetworkAccessActivator.Activate("Item"));
+        categoryService = (ICategoryCRUD) new Activator().activate("Category", this, NetworkAccessActivator.Activate("Category"));
 //        ObservableList<String> categoryList = FXCollections.observableArrayList(categoryModel.getTypes());
         ObservableList<String> categoryList = FXCollections.observableArrayList(categoryService.getAllCategoryNames());
         categoryBox.setItems(categoryList);
         resetValues();
         setProduct();
+    }
+
+    @Override
+    public void pushData(Object obj) {
+
     }
 
     public void setProduct() {
@@ -173,4 +157,6 @@ public class EditController implements Initializable {
     public void closeAction(ActionEvent event) {
         ((Node) (event.getSource())).getScene().getWindow().hide();
     }
+
+
 }
