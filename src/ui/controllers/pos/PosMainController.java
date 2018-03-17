@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import ui._utilities.AlertDisplay;
 import ui._utilities.WindowChange;
 
 import java.net.URL;
@@ -27,6 +28,7 @@ public class PosMainController implements Initializable, IDataLoad {
 
     private ICRUD<Item> service;
     private ObservableList<Item> PRODUCTLIST = FXCollections.observableArrayList();
+    private AlertDisplay alert;
 
 
     @FXML
@@ -56,8 +58,10 @@ public class PosMainController implements Initializable, IDataLoad {
     public void initialize(URL location, ResourceBundle resources) {
         ITEMLIST = FXCollections.observableArrayList();
         service = (ICRUD<Item>) new Activator().activate("Item", this, NetworkAccessActivator.Activate("Item"));
+        alert = new AlertDisplay();
 
-        loadData();
+        service.getAll();
+//        loadData();
 
         productColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         productTableView.getSelectionModel().selectedItemProperty().addListener(
@@ -83,7 +87,8 @@ public class PosMainController implements Initializable, IDataLoad {
 
     @Override
     public void pushData(Object obj) {
-
+        List<Item> itemList = (List<Item>) obj;
+        loadData(itemList);
     }
 
     private void filterData() {
@@ -111,12 +116,11 @@ public class PosMainController implements Initializable, IDataLoad {
         });
     }
 
-    private void loadData() {
+    private void loadData(List<Item> itemList) {
         if (!PRODUCTLIST.isEmpty()) {
             PRODUCTLIST.clear();
         }
-
-        PRODUCTLIST.addAll(service.getAll());
+        PRODUCTLIST.addAll(itemList);
     }
 
     private void showDetails(Item product) {
@@ -176,7 +180,8 @@ public class PosMainController implements Initializable, IDataLoad {
     }
 
     private void resetInterface() {
-        loadData();
+        // loadData();
+        service.getAll();
         resetPaymentButton();
         resetProductTableSelection();
         resetItemTable();
@@ -293,11 +298,7 @@ public class PosMainController implements Initializable, IDataLoad {
         if (errorMessage.length() == 0) {
             return true;
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Please input the valid number of products");
-            alert.setContentText(errorMessage);
-            alert.showAndWait();
+            alert.warningDisplay("Warning", "Please input the valid number of products", errorMessage);
             quantityField.setText("");
 
             return false;

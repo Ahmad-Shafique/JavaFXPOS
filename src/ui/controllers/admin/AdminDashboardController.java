@@ -17,6 +17,7 @@ import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import org.jetbrains.annotations.NotNull;
 import ui._utilities.WindowChange;
 
 import java.net.URL;
@@ -48,6 +49,8 @@ public class AdminDashboardController implements Initializable, IDataLoad {
 
     private ICRUD<Item> itemService;
     private ICRUD<Invoice> invoiceService;
+    private ObservableList<String> itemNamesList ;
+    private ObservableList<Item> itemList ;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,28 +58,31 @@ public class AdminDashboardController implements Initializable, IDataLoad {
         itemService = (ICRUD<Item>) new Activator().activate("Item", this, NetworkAccessActivator.Activate("Item"));
         invoiceService = (ICRUD<Invoice>) new Activator().activate("Invoice", this, NetworkAccessActivator.Activate("Invoice"));
 
-        console.log("Item and invoice fetched");
+//        console.log("Item and invoice fetched");
 
         drawerAction();
 
-        console.log("drawer action complete");
+//        console.log("drawer action complete");
 
         loadInvoiceChart();
 
-        console.log("Invoice loaded");
+//        console.log("Invoice loaded");
 
-        loadProductsChart();
+        itemService.getAll();
+        // loadProductsChart();
 
-        console.log("products loaded");
+//        console.log("products loaded");
 
-        loadStockChart();
+        // loadStockChart();
 
-        console.log("products stock loaded");
+//        console.log("products stock loaded");
     }
 
     @Override
     public void pushData(Object obj) {
-
+        List<Item> itemsList = (List<Item>) obj;
+        loadProductsChart(itemsList);
+        loadStockChart(itemsList);
     }
 
     private void drawerAction() {
@@ -101,8 +107,6 @@ public class AdminDashboardController implements Initializable, IDataLoad {
     }
 
     private void loadInvoiceChart() {
-
-
 //        console.log("Entered loadInvoiceChart method");
 
         String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
@@ -133,55 +137,57 @@ public class AdminDashboardController implements Initializable, IDataLoad {
 //        console.log("Completed loadInvoiceChart method");
     }
 
-    private void loadProductsChart() {
+    private void loadProductsChart(@NotNull List<Item> itemsList) {
 
-//        console.log("Entered method");
+//        console.log("Entered loadProductChart method");
 
-        ObservableList lists = FXCollections.observableArrayList();
+        itemNamesList = FXCollections.observableArrayList();
 
         XYChart.Series<String, Double> series = new XYChart.Series<>();
 
 //        console.log("Initiated objects");
 
-        List<Item> itemList = itemService.getAll();
+//        List<Item> itemList = itemService.getAll();
 
 
 //        console.log("list received in controller");
 
-        for (Item p : itemList) {
+        for (Item p : itemsList) {
             series.getData().add(new XYChart.Data(p.getName(), p.getQuantityAvailable()));
 
 //            console.log("Added data to chart");
 
-            lists.add(p.getName());
+            itemNamesList.add(p.getName());
 
 //            console.log("added item to observable list");
         }
 
+//        console.log("Items added to observable list");
+
         series.setName("Products");
 
-        console.log("name set");
+//        console.log("name set");
 
-        pxAxis.setCategories(lists);
+        pxAxis.setCategories(itemNamesList);
 
-        console.log("categories set");
+//        console.log("categories set");
 
         productsChart.getData().add(series);
 
-        console.log("completed loadProductsChart method");
+//        console.log("completed loadProductsChart method");
     }
 
-    private String convertDate(String date) {
+    private String convertDate(@NotNull String date) {
 
         int d = Integer.parseInt(date.substring(5, 7));
         return new DateFormatSymbols().getMonths()[d - 1];
     }
 
-    private void loadStockChart(){
+    private void loadStockChart(@NotNull List<Item> itemList){
 
         ObservableList<PieChart.Data> lists = FXCollections.observableArrayList();
 
-        for(Item p : itemService.getAll()){
+        for(Item p : itemList){
 
             lists.add(new PieChart.Data(p.getName(), p.getQuantityAvailable()));
         }

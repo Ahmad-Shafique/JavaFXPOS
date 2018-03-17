@@ -26,6 +26,14 @@ public class AlertDisplay {
         alert.showAndWait();
     }
 
+    public void warningDisplay(String title, String headerText, String contextText){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contextText);
+        alert.showAndWait();
+    }
+
     public Optional<ButtonType> confirmationDisplay(String title, String headerText, String contextText){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
