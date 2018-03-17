@@ -18,9 +18,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ui._utilities.AlertDisplay;
+import ui._utilities.TransferService;
 import ui._utilities.WindowChange;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -231,6 +233,23 @@ public class PosMainController implements Initializable, IDataLoad {
     @FXML
     public void paymentAction(ActionEvent event) throws Exception {
         console.log("Payment button pressed");
+
+//        List<SaleItem> saleItems = Arrays.asList(new SaleItem[1]);
+//
+//        for (SaleItem item : ITEMLIST
+//             ) {
+//            saleItems.add(item);
+//        }
+//
+//        TransferService.storeForTransfer(saleItems);
+
+        TransferService.storeForTransfer(ITEMLIST);
+
+        WindowChange.Activate(event,"../display/fxml/checkout/information_validation.fxml", "Checkout Window");
+
+
+        // WindowChange.Activate(event, "../../ui/display/fxml/checkout/information_validation.fxml", "JFXPOS:: Version 1.0", "/images/logo.png", "internal");
+
         /*Payment payment = new Payment(
                 Double.parseDouble(subTotalField.getText().trim()),
                 Double.parseDouble(vatField.getText().trim()),

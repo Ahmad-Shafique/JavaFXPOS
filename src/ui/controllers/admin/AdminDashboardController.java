@@ -50,7 +50,7 @@ public class AdminDashboardController implements Initializable, IDataLoad {
     private ICRUD<Item> itemService;
     private ICRUD<Invoice> invoiceService;
     private ObservableList<String> itemNamesList ;
-    private ObservableList<Item> itemList ;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

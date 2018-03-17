@@ -1,6 +1,6 @@
 package core.domain.model.entities;
 
-public class SaleItem extends BaseEntity{
+public class    SaleItem extends BaseEntity{
     private int saleId;
     private int itemId;
     private String name;
