@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public class Invoice extends BaseSerializableEntity {
     private int userId;
+    private int saleId;
     private String userName;
     private double totalPrice;
     private double vat;
@@ -49,6 +50,14 @@ public class Invoice extends BaseSerializableEntity {
 
     public int getUserId() {
         return userId;
+    }
+
+    public int getSaleId() {
+        return saleId;
+    }
+
+    public void setSaleId(int saleId) {
+        this.saleId = saleId;
     }
 
     public String getUserName() {

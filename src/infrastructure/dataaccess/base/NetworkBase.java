@@ -11,6 +11,7 @@ public class NetworkBase {
     protected String userAutheticationApi = "User/1";
     protected String itemApi = "Item";
     protected String categoryApi = "Category";
+    protected String invoiceApi = "Invoice";
 
     protected MediaType JSON ;
 

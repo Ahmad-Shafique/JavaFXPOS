@@ -45,7 +45,7 @@ class CategoryCRUD extends BaseCRUD<Category> implements ICategoryCRUD {
     @Override
     public List<Category> getAll(){
         try{
-            TimeUnit.SECONDS.sleep(10);
+            // TimeUnit.SECONDS.sleep(10);
         }catch (Exception e){
 
         }

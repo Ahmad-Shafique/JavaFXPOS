@@ -6,6 +6,7 @@ import core.domain.model.entities._utilities.DateBreakdown;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
 import core.domain.services.interfaces.dataload.IDataLoad;
+import core.domain.services.interfaces.dataload.IInvoiceHandler;
 import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class AdminDashboardController implements Initializable, IDataLoad {
+public class AdminDashboardController implements Initializable, IInvoiceHandler {
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -56,7 +57,9 @@ public class AdminDashboardController implements Initializable, IDataLoad {
     public void initialize(URL location, ResourceBundle resources) {
 
         itemService = (ICRUD<Item>) new Activator().activate("Item", this, NetworkAccessActivator.Activate("Item"));
+        console.log("Item service loaded");
         invoiceService = (ICRUD<Invoice>) new Activator().activate("Invoice", this, NetworkAccessActivator.Activate("Invoice"));
+        console.log("Invoice service loaded");
 
 //        console.log("Item and invoice fetched");
 
@@ -64,7 +67,8 @@ public class AdminDashboardController implements Initializable, IDataLoad {
 
 //        console.log("drawer action complete");
 
-        loadInvoiceChart();
+        invoiceService.getAll();
+        //loadInvoiceChart();
 
 //        console.log("Invoice loaded");
 
@@ -83,6 +87,11 @@ public class AdminDashboardController implements Initializable, IDataLoad {
         List<Item> itemsList = (List<Item>) obj;
         loadProductsChart(itemsList);
         loadStockChart(itemsList);
+    }
+
+    @Override
+    public void pushInvoice(List<Invoice> invoiceList) {
+        loadInvoiceChart(invoiceList);
     }
 
     private void drawerAction() {
@@ -106,7 +115,7 @@ public class AdminDashboardController implements Initializable, IDataLoad {
 //        console.log("Completed drawerAction method");
     }
 
-    private void loadInvoiceChart() {
+    private void loadInvoiceChart(List<Invoice> invoiceList) {
 //        console.log("Entered loadInvoiceChart method");
 
         String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
@@ -115,7 +124,6 @@ public class AdminDashboardController implements Initializable, IDataLoad {
 
 //        console.log("Initiated chartXY series");
 
-        List<Invoice> invoiceList = invoiceService.getAll();
 
         for (Invoice i : invoiceList) {
             String month = DateBreakdown.getInstance().getMonth(i.getTransactionTime());

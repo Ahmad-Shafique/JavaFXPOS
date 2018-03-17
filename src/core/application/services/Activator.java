@@ -15,7 +15,7 @@ public class Activator {
         else if(repositoryName == "Item") return new ItemCRUD((IItemDataAccess) dataAccess, dataLoader);
         else if(repositoryName == "Sale") return new SaleCRUD((ISaleDataAccess) dataAccess);
         else if(repositoryName == "User") return new UserCRUD((IUserDataAccess) dataAccess);
-        else if(repositoryName == "Invoice") return new InvoiceCRUD(dataAccess);
+        else if(repositoryName == "Invoice") return new InvoiceCRUD(dataAccess, dataLoader);
         return new Object();
     }
 }
