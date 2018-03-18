@@ -33,7 +33,7 @@
          </children>
       </VBox>
       <Label layoutX="494.0" layoutY="241.0" text="Payment type" />
-      <Button layoutX="497.0" layoutY="379.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="204.0" text="Print Invoice">
+      <Button fx:id="printInvoiceButton" layoutX="497.0" layoutY="379.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="204.0" text="Print Invoice" onAction="#printInvoiceAction">
          <font>
             <Font size="20.0" />
          </font>

@@ -1,63 +1,54 @@
 package infrastructure.invoice.maker;
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import core.domain.model.entities.SaleItem;
-import core.domain.model.entities._utilities.console;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 public class CreateInvoicePdf {
-
     private final ObservableList<SaleItem> items;
-    private final String barcode;
-
-    public CreateInvoicePdf(ObservableList<SaleItem> items) {
-        this.items = FXCollections.observableArrayList(items);
-//        this.barcode = barcode;
-        this.barcode = "154212";
-    }
 
     public CreateInvoicePdf(){
-        this.items = FXCollections.observableArrayList(
-                new SaleItem(1, 1, 1, 1, 250),
-                new SaleItem(2, 1, 2, 2, 480)
-        );
-        this.barcode = "154212";
+        this.items = FXCollections.observableArrayList();
     }
 
-    public void generateReport() {
+    public CreateInvoicePdf(ObservableList<SaleItem> items){
+        this.items = items;
+    }
 
-        try {
-            Document document = new Document();
-            FileOutputStream fs = new FileOutputStream("Invoice.pdf");
-            PdfWriter writer = PdfWriter.getInstance(document, fs);
-            document.open();
+    public static final String RESULT
+            = "invoices/";
 
-            Paragraph paragraph = new Paragraph("Product ID");
-            document.add(paragraph);
-            addEmptyLine(paragraph, 5);
+    public void create() throws Exception{
+        String filename = "Invoice.pdf";
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(filename));
+        document.open();
 
-            PdfContentByte cb = writer.getDirectContent();
-            BarcodeEAN codeEAN = new BarcodeEAN();
-            codeEAN.setCodeType(codeEAN.EAN13);
-            codeEAN.setCode(barcode);
+        Paragraph paragraph = new Paragraph("Products list");
+        document.add(paragraph);
+        addEmptyLine(paragraph, 5);
+        addEmptyLine(paragraph, 5);
+        addEmptyLine(paragraph, 5);
+        addEmptyLine(paragraph, 5);
+        addEmptyLine(paragraph, 5);
 
-            console.log("Reached stage 1");
 
-            document.add(codeEAN.createImageWithBarcode(cb, BaseColor.BLACK, BaseColor.DARK_GRAY));
-            addEmptyLine(paragraph, 5);
+        PdfPTable table = createTable();
+        document.add(table);
 
-            PdfPTable table = createTable();
-            document.add(table);
+        // document.add(new Paragraph("Hello World!"));
+        // step 5
+        document.close();
 
-            document.close();
-        } catch (DocumentException | FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
-        }
     }
 
     private PdfPTable createTable() {

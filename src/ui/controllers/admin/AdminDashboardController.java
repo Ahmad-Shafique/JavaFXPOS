@@ -99,7 +99,7 @@ public class AdminDashboardController implements Initializable, IDataLoad {
                 loadInvoiceChart(invoiceList);
             }
         }catch (Exception e){
-            console.log("Exception in data load");
+//            console.log("Exception in data load");
         }
 
 

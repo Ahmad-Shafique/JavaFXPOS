@@ -3,8 +3,10 @@ package ui.controllers.checkout;
 import core.domain.model.entities.Item;
 import core.domain.model.entities.SaleItem;
 import core.domain.model.entities._utilities.console;
+import infrastructure.invoice.maker.CreateInvoicePdf;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -12,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ui._utilities.TransferService;
+import ui._utilities.WindowChange;
 
 import java.net.URL;
 import java.util.List;
@@ -64,6 +67,16 @@ public class InformationValidationController implements Initializable {
         }*/
 
         productTableView.setItems(itemList);
+
+    }
+
+    @FXML
+    public void printInvoiceAction(ActionEvent event) throws Exception {
+        console.log("print invoice button pressed");
+
+        new CreateInvoicePdf(itemList).create();
+
+        WindowChange.Activate(event,"../display/fxml/pos/main.fxml", "POS Window");
 
     }
 }
