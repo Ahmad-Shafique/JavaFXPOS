@@ -1,6 +1,8 @@
 package ui.entry;
 
 import core.domain.model.entities._utilities.console;
+import infrastructure.invoice.maker.CreateInvoicePdf;
+import infrastructure.invoice.maker.sample.HelloWorldPdf;
 import infrastructure.sample.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +33,8 @@ public class Main extends Application {
     public static void main(String[] args) throws Exception {
         // console.log(new User().run("https://jsonplaceholder.typicode.com/posts/1"));
         // console.log(new User().run("http://localhost:3000/Category/1"));
+        // new CreateInvoicePdf().generateReport();
+        new HelloWorldPdf().create();
         launch(args);
     }
 }
