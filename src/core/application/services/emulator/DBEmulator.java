@@ -24,8 +24,8 @@ public class DBEmulator {
             new User(1,"1","1","","","")
     );
     private static List<Invoice> invoiceList= Arrays.asList(
-            new Invoice(1,1, "Janice", 500, 500, 500, 0, new Date(), 0.0, 0.0),
-            new Invoice(2,1, "Janice", 275, 300, 500, 200, new Date(), 25.0, 0.0)
+            new Invoice(1,1, "Janice", 500, 500, 500, 0, new Date().toString(), 0.0, 0.0),
+            new Invoice(2,1, "Janice", 275, 300, 500, 200, new Date().toString(), 25.0, 0.0)
     );
 
 

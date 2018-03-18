@@ -13,9 +13,9 @@ public class NewInvoice {
     private double payable;
     private double paid;
     private double returned;
-    private Date transactionTime;
+    private String transactionTime;
 
-    public NewInvoice(int userId, int saleId, String userName, double totalPrice, double payable, double paid, double returned, Date transactionTime,
+    public NewInvoice(int userId, int saleId, String userName, double totalPrice, double payable, double paid, double returned, String transactionTime,
                    Double vat, Double discount){
         this.userId = userId;
         this.saleId = saleId;

@@ -16,7 +16,7 @@ public class Invoice extends BaseSerializableEntity {
     private double payable;
     private double paid;
     private double returned;
-    private Date transactionTime;
+    private String transactionTime;
 
     public Invoice(){
         this.id = -1;
@@ -26,13 +26,13 @@ public class Invoice extends BaseSerializableEntity {
         this.payable = -1;
         this.paid = -1;
         this.returned = -1;
-        this.transactionTime = new Date();
+        this.transactionTime = new Date().toString();
         this.vat = -1;
         this.discount = -1;
 
     }
 
-    public Invoice(int id, int userId, String userName, double totalPrice, double payable, double paid, double returned, Date transactionTime,
+    public Invoice(int id, int userId, String userName, double totalPrice, double payable, double paid, double returned, String transactionTime,
                    Double vat, Double discount){
         this.id = id;
         this.userId = userId;
@@ -88,7 +88,7 @@ public class Invoice extends BaseSerializableEntity {
         return returned;
     }
 
-    public Date getTransactionTime() {
+    public String getTransactionTime() {
         return transactionTime;
     }
 }

@@ -1,12 +1,13 @@
 package ui.controllers.admin;
 
 import core.application.services.Activator;
+import core.application.services.data.access.interfaces.modelwise.invoice.IInvoiceDataAccess;
+import core.application.services.data.access.interfaces.modelwise.item.IItemDataAccess;
 import core.domain.model.entities.*;
 import core.domain.model.entities._utilities.DateBreakdown;
 import core.domain.model.entities._utilities.console;
 import core.domain.services.interfaces.ICRUD;
 import core.domain.services.interfaces.dataload.IDataLoad;
-import core.domain.services.interfaces.dataload.IInvoiceHandler;
 import infrastructure.dataaccess.NetworkAccessActivator;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -23,11 +24,12 @@ import ui._utilities.WindowChange;
 
 import java.net.URL;
 import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class AdminDashboardController implements Initializable, IInvoiceHandler {
+public class AdminDashboardController implements Initializable, IDataLoad {
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -57,9 +59,9 @@ public class AdminDashboardController implements Initializable, IInvoiceHandler 
     public void initialize(URL location, ResourceBundle resources) {
 
         itemService = (ICRUD<Item>) new Activator().activate("Item", this, NetworkAccessActivator.Activate("Item"));
-        console.log("Item service loaded");
-        invoiceService = (ICRUD<Invoice>) new Activator().activate("Invoice", this, NetworkAccessActivator.Activate("Invoice"));
-        console.log("Invoice service loaded");
+//        console.log("Item service loaded");
+        invoiceService = (ICRUD<Invoice>) new Activator().activate("Invoice", this,  NetworkAccessActivator.Activate("Invoice"));
+//        console.log("Invoice service loaded");
 
 //        console.log("Item and invoice fetched");
 
@@ -83,15 +85,26 @@ public class AdminDashboardController implements Initializable, IInvoiceHandler 
     }
 
     @Override
-    public void pushData(Object obj) {
-        List<Item> itemsList = (List<Item>) obj;
-        loadProductsChart(itemsList);
-        loadStockChart(itemsList);
-    }
+    public void pushData(Object obj){
+        try {
+//            console.log("Injecting data into the controller");
+            List<Item> itemsList = (List<Item>) obj;
+            if(itemsList != null){
+//                console.log("Injecting product list");
+                loadProductsChart(itemsList);
+                loadStockChart(itemsList);
+            }else{
+//                console.log("Injecting invoice list");
+                List<Invoice> invoiceList = (List<Invoice>) obj;
+                loadInvoiceChart(invoiceList);
+            }
+        }catch (Exception e){
+            console.log("Exception in data load");
+        }
 
-    @Override
-    public void pushInvoice(List<Invoice> invoiceList) {
-        loadInvoiceChart(invoiceList);
+
+
+
     }
 
     private void drawerAction() {
@@ -115,7 +128,7 @@ public class AdminDashboardController implements Initializable, IInvoiceHandler 
 //        console.log("Completed drawerAction method");
     }
 
-    private void loadInvoiceChart(List<Invoice> invoiceList) {
+    private void loadInvoiceChart(List<Invoice> invoiceList) throws Exception {
 //        console.log("Entered loadInvoiceChart method");
 
         String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
@@ -126,7 +139,7 @@ public class AdminDashboardController implements Initializable, IInvoiceHandler 
 
 
         for (Invoice i : invoiceList) {
-            String month = DateBreakdown.getInstance().getMonth(i.getTransactionTime());
+            String month = DateBreakdown.getInstance().getMonth(new SimpleDateFormat("dd/MM/yyyy").parse(i.getTransactionTime()));
 //                    convertDate(i.getTransactionTime().toString());
 
 //            console.log("month separated");

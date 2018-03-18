@@ -1,6 +1,7 @@
 package infrastructure.dataaccess.modelwise.invoice;
 
 import core.application.services.data.access.interfaces.base.IBaseDataAccess;
+import core.application.services.data.access.interfaces.modelwise.invoice.IInvoiceDataAccess;
 import core.application.services.data.access.interfaces.modelwise.item.IItemDataAccess;
 import core.domain.model.entities.Category;
 import core.domain.model.entities.Invoice;
@@ -10,7 +11,7 @@ import infrastructure.dataaccess._utilities.NewInvoice;
 import infrastructure.dataaccess.base.NetworkBase;
 import okhttp3.Response;
 
-public class InvoiceDataAccess extends NetworkBase implements IItemDataAccess {
+public class InvoiceDataAccess extends NetworkBase implements IInvoiceDataAccess {
 
     @Override
     public Object getById(int id) {
@@ -51,7 +52,7 @@ public class InvoiceDataAccess extends NetworkBase implements IItemDataAccess {
 
             Response response = client.newCall(postRequestBuilder(url,json)).execute();
 
-            console.log("Invoice successfully created");
+//            console.log("Invoice successfully created");
 
             return true;
         }catch (Exception e){
@@ -64,11 +65,16 @@ public class InvoiceDataAccess extends NetworkBase implements IItemDataAccess {
     public Object[] getAll() {
 
         String url = server + invoiceApi;
+//        console.log("url: " + url);
         try {
             Response response = client.newCall(requestBuilder(url)).execute();
+//            console.log("response received");
             if(response.isSuccessful() && response.code() == 200 ){
+//                console.log("reply is 200 ");
                 String received = response.body().string();
+//                console.log("response is: " + received);
                 Invoice[] result = gson.fromJson(received, Invoice[].class);
+//                console.log("Invoice objects created");
                 return result;
             }
         }catch (Exception e){
