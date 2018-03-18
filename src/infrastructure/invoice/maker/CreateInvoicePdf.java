@@ -8,6 +8,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import core.domain.model.entities.SaleItem;
+import infrastructure.invoice.printer.PdfPrinter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -49,6 +50,7 @@ public class CreateInvoicePdf {
         // step 5
         document.close();
 
+        // // // // // // // //  ===================>>>>>>>>>>>>>                new PdfPrinter(filename).print();
     }
 
     private PdfPTable createTable() {
